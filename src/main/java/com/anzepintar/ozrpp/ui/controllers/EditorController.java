@@ -100,12 +100,9 @@ public class EditorController implements Initializable {
   public void initialize(URL url, ResourceBundle resourceBundle) {
     fileChooser.setInitialDirectory(new File("C:\\Users\\anze\\Downloads"));
 
-    // https://stackoverflow.com/questions/10152828/javafx-2-automatic-column-width
-    // widths = 0.39, 0.39, 0.18
     sourceStringsCol.prefWidthProperty().bind(editorDataTableView.widthProperty().multiply(0.39));
     targetStringsCol.prefWidthProperty().bind(editorDataTableView.widthProperty().multiply(0.39));
     stringStatusCol.prefWidthProperty().bind(editorDataTableView.widthProperty().multiply(0.18));
-    //
 
     sourceStringsCol.setCellValueFactory(
         new PropertyValueFactory<EditorData, CustomEditorSourceTextArea>("sourceStrings")

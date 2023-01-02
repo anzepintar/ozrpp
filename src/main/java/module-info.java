@@ -2,6 +2,7 @@ module com.anzepintar {
   requires javafx.base;
   requires javafx.controls;
   requires javafx.fxml;
+  requires org.controlsfx.controls;
 
   exports com.anzepintar.ozrpp;
   opens com.anzepintar.ozrpp to javafx.fxml;

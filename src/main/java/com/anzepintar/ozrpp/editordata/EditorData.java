@@ -34,11 +34,11 @@ public class EditorData {
     this.stringStatus = new CustomEditorStringStatusLabel();
   }
 
-  private CustomEditorSourceTextArea getSourceStrings() {
+  public CustomEditorSourceTextArea getSourceStrings() {
     return sourceStrings;
   }
 
-  private void setSourceStrings(CustomEditorSourceTextArea sourceStrings) {
+  public void setSourceStrings(CustomEditorSourceTextArea sourceStrings) {
     this.sourceStrings = sourceStrings;
   }
 
