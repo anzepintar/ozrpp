@@ -1,6 +1,7 @@
 # Orodje za računalniško podprto prevajanje
 
 TODO:
+
 - [x] Uporabniški vmesnik za začetek
   - [ ] Dokončanje vseh funkcionalnosti 
 - [x] Uporabniški vmesnik za urejanje prevodov
@@ -14,8 +15,12 @@ TODO:
 - [ ] Uvažanje datotek v različnih datotečnih formatih
 - [ ] Izvažanje datotek v različne datotečne formate
 - [ ] Izboljšanje izgleda celotnega uporabniškega vmesnika s CSS
+- [ ] Izdelava dialoga z nastavitvami
+  - [ ] Poljubna velikost in vrsta pisave
+  - [ ] Izbira jezika uporabniškega vmesnika
+  - [ ] Konfiguracija strojnega prevajanja
 - [ ] Izdelava namestitvenega paketa za program
 - [ ] Izdelava avtomatskih testov
 - [ ] Dokumentacija programske kode
-  - [ ] Javadoc 
+  - [ ] Javadoc
 - [ ] Izdelava uporabniške dokumentacije
