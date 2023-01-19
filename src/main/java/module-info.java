@@ -2,7 +2,7 @@ module com.anzepintar {
   requires javafx.base;
   requires javafx.controls;
   requires javafx.fxml;
-  requires org.controlsfx.controls;
+  requires jakarta.xml.bind;
 
   exports com.anzepintar.ozrpp;
   opens com.anzepintar.ozrpp to javafx.fxml;
@@ -20,6 +20,10 @@ module com.anzepintar {
 
   exports com.anzepintar.ozrpp.fileimport;
   opens com.anzepintar.ozrpp.fileimport to javafx.fxml;
+
   exports com.anzepintar.ozrpp.ui.customcotrols;
   opens com.anzepintar.ozrpp.ui.customcotrols to javafx.fxml;
+
+  exports com.anzepintar.ozrpp.projectdata;
+  opens com.anzepintar.ozrpp.projectdata to jakarta.xml.bind;
 }

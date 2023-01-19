@@ -1,4 +1,4 @@
-# Orodje za računalniško podprto prevajanje
+# OZRPP - Orodje za računalniško podprto prevajanje
 
 TODO:
 - [x] Uporabniški vmesnik za začetek

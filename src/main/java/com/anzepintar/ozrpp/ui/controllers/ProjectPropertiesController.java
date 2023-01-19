@@ -13,7 +13,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import org.controlsfx.control.SearchableComboBox;
 
 /**
  *
@@ -26,13 +25,13 @@ public class ProjectPropertiesController implements Initializable {
   @FXML
   private TextField sourceFilesPathLabel;
   @FXML
-  private SearchableComboBox<?> sourceLanguageSelector;
+  private ComboBox<?> sourceLanguageSelector;
   @FXML
   private ComboBox<?> sourceLanguageTokenizerSelector;
   @FXML
   private TextField targetFilesPathLabel;
   @FXML
-  private SearchableComboBox<?> targetLanguageSelector;
+  private ComboBox<?> targetLanguageSelector;
   @FXML
   private ComboBox<?> targetLanguageTokenizerSelector;
 
