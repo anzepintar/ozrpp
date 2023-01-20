@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<project>
-    <source_dir>aa</source_dir>
-    <target_dir>bb</target_dir>
-    <source_lang>cc</source_lang>
-    <target_lang>dd</target_lang>
-</project>

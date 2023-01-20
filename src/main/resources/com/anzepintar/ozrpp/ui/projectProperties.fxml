@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import org.controlsfx.control.SearchableComboBox?>
 
 <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.anzepintar.ozrpp.ui.controllers.ProjectPropertiesController">
    <children>
@@ -43,13 +42,13 @@
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
                   <Label text="Source files language" />
-                  <SearchableComboBox fx:id="sourceLanguageSelector" editable="true" promptText="Language" />
+                  <ComboBox fx:id="sourceLanguageSelector" editable="true" promptText="Language" />
                </children>
             </VBox>
             <VBox layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                <children>
                   <Label text="Target files language" />
-                  <SearchableComboBox fx:id="targetLanguageSelector" editable="true" promptText="Language" />
+                  <ComboBox fx:id="targetLanguageSelector" editable="true" promptText="Language" />
                </children>
             </VBox>
             <VBox layoutX="10.0" layoutY="60.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
