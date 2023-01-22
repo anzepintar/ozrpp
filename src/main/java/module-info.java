@@ -24,6 +24,6 @@ module com.anzepintar {
   exports com.anzepintar.ozrpp.ui.customcotrols;
   opens com.anzepintar.ozrpp.ui.customcotrols to javafx.fxml;
 
-  exports com.anzepintar.ozrpp.projectdata;
-  opens com.anzepintar.ozrpp.projectdata to jakarta.xml.bind;
+  exports com.anzepintar.ozrpp.projectproperties;
+  opens com.anzepintar.ozrpp.projectproperties to jakarta.xml.bind;
 }

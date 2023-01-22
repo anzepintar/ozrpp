@@ -37,7 +37,7 @@ public class LauncherController {
     projectDirectory = directoryChooser.showDialog(new Stage());
 
     stage.setTitle(projectDirectory.getAbsolutePath());
-    Ozrpp.setRoot("ui/projectProperties");
+    Ozrpp.setRoot("ui/projectPropertiesScene");
     stage.getScene().getWindow().sizeToScene();
   }
 

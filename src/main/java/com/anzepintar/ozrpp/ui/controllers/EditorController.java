@@ -1,5 +1,6 @@
 package com.anzepintar.ozrpp.ui.controllers;
 
+import com.anzepintar.ozrpp.Ozrpp;
 import com.anzepintar.ozrpp.editordata.EditorData;
 import com.anzepintar.ozrpp.ui.customcotrols.CustomEditorSourceTextArea;
 import com.anzepintar.ozrpp.ui.customcotrols.CustomEditorStringStatusLabel;
@@ -17,10 +18,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -52,7 +55,10 @@ public class EditorController implements Initializable {
   private MenuItem menuEditDelete;
 
   @FXML
-  void closeFile(ActionEvent event) {
+  void closeFile(ActionEvent event) throws IOException {
+    Stage stage = (Stage) menuFileCloseFile.getParentPopup().getOwnerWindow();
+    Ozrpp.setRoot("ui/launcherScene");
+    stage.getScene().getWindow().sizeToScene();
   }
 
   @FXML
