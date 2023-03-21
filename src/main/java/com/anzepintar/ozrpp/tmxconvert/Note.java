@@ -6,7 +6,7 @@
 //
 
 
-package com.anzepintar.ozrpp.savedprogress;
+package com.anzepintar.ozrpp.tmxconvert;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -25,18 +25,15 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(name = "", propOrder = {
     "value"
 })
-@XmlRootElement(name = "prop")
-public class Prop {
+@XmlRootElement(name = "note")
+public class Note {
 
-    @XmlAttribute(name = "type", required = true)
-    @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
-    protected String type;
-    @XmlAttribute(name = "xml:lang")
-    @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
-    protected String xmlLang;
     @XmlAttribute(name = "o-encoding")
     @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
     protected String oEncoding;
+    @XmlAttribute(name = "xml:lang")
+    @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
+    protected String xmlLang;
     @XmlAttribute(name = "lang")
     @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
     protected String lang;
@@ -44,27 +41,27 @@ public class Prop {
     protected String value;
 
     /**
-     * Gets the value of the type property.
+     * Gets the value of the oEncoding property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getType() {
-        return type;
+    public String getOEncoding() {
+        return oEncoding;
     }
 
     /**
-     * Sets the value of the type property.
+     * Sets the value of the oEncoding property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setType(String value) {
-        this.type = value;
+    public void setOEncoding(String value) {
+        this.oEncoding = value;
     }
 
     /**
@@ -89,30 +86,6 @@ public class Prop {
      */
     public void setXmlLang(String value) {
         this.xmlLang = value;
-    }
-
-    /**
-     * Gets the value of the oEncoding property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getOEncoding() {
-        return oEncoding;
-    }
-
-    /**
-     * Sets the value of the oEncoding property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setOEncoding(String value) {
-        this.oEncoding = value;
     }
 
     /**

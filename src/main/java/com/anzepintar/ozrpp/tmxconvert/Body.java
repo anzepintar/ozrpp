@@ -6,7 +6,7 @@
 //
 
 
-package com.anzepintar.ozrpp.savedprogress;
+package com.anzepintar.ozrpp.tmxconvert;
 
 import java.util.ArrayList;
 import java.util.List;

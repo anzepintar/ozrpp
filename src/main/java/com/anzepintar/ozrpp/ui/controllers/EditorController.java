@@ -1,7 +1,9 @@
 package com.anzepintar.ozrpp.ui.controllers;
 
 import com.anzepintar.ozrpp.Ozrpp;
-import com.anzepintar.ozrpp.editordata.EditorData;
+import com.anzepintar.ozrpp.fileimport.FileImporter;
+import com.anzepintar.ozrpp.tmxconvert.ObjectFactory;
+import com.anzepintar.ozrpp.translationstrings.TranslationStrings;
 import com.anzepintar.ozrpp.ui.customcotrols.CustomEditorSourceTextArea;
 import com.anzepintar.ozrpp.ui.customcotrols.CustomEditorStringStatusLabel;
 import com.anzepintar.ozrpp.ui.customcotrols.CustomEditorTextArea;
@@ -18,12 +20,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -34,15 +34,17 @@ import javafx.stage.Stage;
 public class EditorController implements Initializable {
 
   FileChooser fileChooser = new FileChooser();
-  ObservableList<EditorData> editorData = FXCollections.observableArrayList();
+  ObservableList<TranslationStrings> editorData = FXCollections.observableArrayList();
+
+  ObjectFactory factory = new ObjectFactory();
   @FXML
-  private TableView<EditorData> editorDataTableView;
+  private TableView<TranslationStrings> editorDataTableView;
   @FXML
-  private TableColumn<EditorData, CustomEditorSourceTextArea> sourceStringsCol;
+  private TableColumn<TranslationStrings, CustomEditorSourceTextArea> sourceStringsCol;
   @FXML
-  private TableColumn<EditorData, CustomEditorTextArea> targetStringsCol;
+  private TableColumn<TranslationStrings, CustomEditorTextArea> targetStringsCol;
   @FXML
-  private TableColumn<EditorData, CustomEditorStringStatusLabel> stringStatusCol;
+  private TableColumn<TranslationStrings, CustomEditorStringStatusLabel> stringStatusCol;
   @FXML
   private MenuItem menuFileCloseFile;
   @FXML
@@ -71,14 +73,16 @@ public class EditorController implements Initializable {
   }
 
   @FXML
-  void openFile(ActionEvent event) {
+  void openFile(ActionEvent event) throws Exception {
     File sourceFile = fileChooser.showOpenDialog(new Stage());
     // https://stackoverflow.com/questions/5868369/how-can-i-read-a-large-text-file-line-by-line-using-java
-
+    FileImporter fileImporter = new FileImporter();
+    fileImporter.importToTmx(sourceFile, "docx");
     try (BufferedReader br = new BufferedReader(new FileReader(sourceFile))) {
       for (String line; (line = br.readLine()) != null; ) {
-        editorData.add(new EditorData("" + line, ""));
+        editorData.add(new TranslationStrings("" + line, ""));
       }
+
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
@@ -88,7 +92,7 @@ public class EditorController implements Initializable {
   void saveFile(ActionEvent event) {
     File targetFile = fileChooser.showSaveDialog(new Stage());
     try (BufferedWriter bw = new BufferedWriter(new FileWriter(targetFile))) {
-      for (EditorData data : editorData) {
+      for (TranslationStrings data : editorData) {
         String targetString = data.getTargetStrings().getText();
         bw.write(targetString);
         bw.newLine();
@@ -104,22 +108,21 @@ public class EditorController implements Initializable {
    */
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    fileChooser.setInitialDirectory(new File("C:\\Users\\anze\\Downloads"));
+    fileChooser.setInitialDirectory(new File("/"));
 
     sourceStringsCol.prefWidthProperty().bind(editorDataTableView.widthProperty().multiply(0.39));
     targetStringsCol.prefWidthProperty().bind(editorDataTableView.widthProperty().multiply(0.39));
     stringStatusCol.prefWidthProperty().bind(editorDataTableView.widthProperty().multiply(0.18));
 
     sourceStringsCol.setCellValueFactory(
-        new PropertyValueFactory<EditorData, CustomEditorSourceTextArea>("sourceStrings")
+        new PropertyValueFactory<TranslationStrings, CustomEditorSourceTextArea>("sourceStrings")
     );
     targetStringsCol.setCellValueFactory(
-        new PropertyValueFactory<EditorData, CustomEditorTextArea>("targetStrings")
+        new PropertyValueFactory<TranslationStrings, CustomEditorTextArea>("targetStrings")
     );
     stringStatusCol.setCellValueFactory(
-        new PropertyValueFactory<EditorData, CustomEditorStringStatusLabel>("stringStatus")
+        new PropertyValueFactory<TranslationStrings, CustomEditorStringStatusLabel>("stringStatus")
     );
-
     editorDataTableView.setItems(editorData);
 
   }

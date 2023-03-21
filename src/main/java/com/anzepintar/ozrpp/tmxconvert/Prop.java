@@ -6,7 +6,7 @@
 //
 
 
-package com.anzepintar.ozrpp.savedprogress;
+package com.anzepintar.ozrpp.tmxconvert;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -25,68 +25,23 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(name = "", propOrder = {
     "value"
 })
-@XmlRootElement(name = "bpt")
-public class Bpt {
+@XmlRootElement(name = "prop")
+public class Prop {
 
-    @XmlAttribute(name = "i", required = true)
-    @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
-    protected String i;
-    @XmlAttribute(name = "x")
-    @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
-    protected String x;
-    @XmlAttribute(name = "type")
+    @XmlAttribute(name = "type", required = true)
     @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
     protected String type;
+    @XmlAttribute(name = "xml:lang")
+    @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
+    protected String xmlLang;
+    @XmlAttribute(name = "o-encoding")
+    @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
+    protected String oEncoding;
+    @XmlAttribute(name = "lang")
+    @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
+    protected String lang;
     @XmlValue
     protected String value;
-
-    /**
-     * Gets the value of the i property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getI() {
-        return i;
-    }
-
-    /**
-     * Sets the value of the i property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setI(String value) {
-        this.i = value;
-    }
-
-    /**
-     * Gets the value of the x property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getX() {
-        return x;
-    }
-
-    /**
-     * Sets the value of the x property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setX(String value) {
-        this.x = value;
-    }
 
     /**
      * Gets the value of the type property.
@@ -110,6 +65,78 @@ public class Bpt {
      */
     public void setType(String value) {
         this.type = value;
+    }
+
+    /**
+     * Gets the value of the xmlLang property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getXmlLang() {
+        return xmlLang;
+    }
+
+    /**
+     * Sets the value of the xmlLang property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setXmlLang(String value) {
+        this.xmlLang = value;
+    }
+
+    /**
+     * Gets the value of the oEncoding property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getOEncoding() {
+        return oEncoding;
+    }
+
+    /**
+     * Sets the value of the oEncoding property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setOEncoding(String value) {
+        this.oEncoding = value;
+    }
+
+    /**
+     * Gets the value of the lang property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getLang() {
+        return lang;
+    }
+
+    /**
+     * Sets the value of the lang property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setLang(String value) {
+        this.lang = value;
     }
 
     /**

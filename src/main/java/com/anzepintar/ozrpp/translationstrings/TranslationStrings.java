@@ -1,4 +1,4 @@
-package com.anzepintar.ozrpp.editordata;
+package com.anzepintar.ozrpp.translationstrings;
 
 import com.anzepintar.ozrpp.ui.customcotrols.CustomEditorSourceTextArea;
 import com.anzepintar.ozrpp.ui.customcotrols.CustomEditorStringStatusLabel;
@@ -8,7 +8,7 @@ import java.util.Arrays;
 /**
  *
  */
-public class EditorData {
+public class TranslationStrings {
 
   // https://docs.lokalise.com/en/articles/3684557-translation-statuses-translated-verified-reviewed-and-completed
   private final String[] statusList = {
@@ -28,7 +28,7 @@ public class EditorData {
    * @param sourceStrings
    * @param targetStrings
    */
-  public EditorData(String sourceStrings, String targetStrings) {
+  public TranslationStrings(String sourceStrings, String targetStrings) {
     this.sourceStrings = new CustomEditorSourceTextArea(sourceStrings);
     this.targetStrings = new CustomEditorTextArea(targetStrings);
     this.stringStatus = new CustomEditorStringStatusLabel();

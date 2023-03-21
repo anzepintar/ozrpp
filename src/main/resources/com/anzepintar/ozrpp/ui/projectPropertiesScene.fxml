@@ -42,25 +42,25 @@
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
                   <Label text="Source files language" />
-                  <ComboBox fx:id="sourceLanguageSelector" editable="true" promptText="Language" />
+                  <ComboBox fx:id="sourceLangSelector" editable="true" promptText="Language" />
                </children>
             </VBox>
             <VBox layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                <children>
                   <Label text="Target files language" />
-                  <ComboBox fx:id="targetLanguageSelector" editable="true" promptText="Language" />
+                  <ComboBox fx:id="targetLangSelector" editable="true" promptText="Language" />
                </children>
             </VBox>
             <VBox layoutX="10.0" layoutY="60.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
                <children>
                   <Label text="Source language tokenizer" />
-                  <ComboBox fx:id="sourceLanguageTokenizerSelector" prefHeight="25.0" prefWidth="339.0" promptText="Tokenizer" />
+                  <ComboBox fx:id="sourceLangTokenizerSelector" prefHeight="25.0" prefWidth="339.0" promptText="Tokenizer" />
                </children>
             </VBox>
             <VBox layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
                   <Label text="Target language tokenizer" />
-                  <ComboBox fx:id="targetLanguageTokenizerSelector" prefHeight="25.0" prefWidth="213.0" promptText="Tokenizer" />
+                  <ComboBox fx:id="targetLangTokenizerSelector" prefHeight="25.0" prefWidth="213.0" promptText="Tokenizer" />
                </children>
             </VBox>
          </children>

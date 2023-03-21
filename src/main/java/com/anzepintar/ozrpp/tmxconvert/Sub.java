@@ -6,13 +6,14 @@
 //
 
 
-package com.anzepintar.ozrpp.savedprogress;
+package com.anzepintar.ozrpp.tmxconvert;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlValue;
 import jakarta.xml.bind.annotation.adapters.NormalizedStringAdapter;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -21,117 +22,91 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "")
-@XmlRootElement(name = "map")
-public class Map {
+@XmlType(name = "", propOrder = {
+    "value"
+})
+@XmlRootElement(name = "sub")
+public class Sub {
 
-    @XmlAttribute(name = "unicode", required = true)
+    @XmlAttribute(name = "datatype")
     @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
-    protected String unicode;
-    @XmlAttribute(name = "code")
+    protected String datatype;
+    @XmlAttribute(name = "type")
     @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
-    protected String code;
-    @XmlAttribute(name = "ent")
-    @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
-    protected String ent;
-    @XmlAttribute(name = "subst")
-    @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
-    protected String subst;
+    protected String type;
+    @XmlValue
+    protected String value;
 
     /**
-     * Gets the value of the unicode property.
+     * Gets the value of the datatype property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getUnicode() {
-        return unicode;
+    public String getDatatype() {
+        return datatype;
     }
 
     /**
-     * Sets the value of the unicode property.
+     * Sets the value of the datatype property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setUnicode(String value) {
-        this.unicode = value;
+    public void setDatatype(String value) {
+        this.datatype = value;
     }
 
     /**
-     * Gets the value of the code property.
+     * Gets the value of the type property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getCode() {
-        return code;
+    public String getType() {
+        return type;
     }
 
     /**
-     * Sets the value of the code property.
+     * Sets the value of the type property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setCode(String value) {
-        this.code = value;
+    public void setType(String value) {
+        this.type = value;
     }
 
     /**
-     * Gets the value of the ent property.
+     * Gets the value of the value property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getEnt() {
-        return ent;
+    public String getvalue() {
+        return value;
     }
 
     /**
-     * Sets the value of the ent property.
+     * Sets the value of the value property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setEnt(String value) {
-        this.ent = value;
-    }
-
-    /**
-     * Gets the value of the subst property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getSubst() {
-        return subst;
-    }
-
-    /**
-     * Sets the value of the subst property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setSubst(String value) {
-        this.subst = value;
+    public void setvalue(String value) {
+        this.value = value;
     }
 
 }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<tmx>
+    <header creationtool="ozrpp"/>
+    <body>
+        <tu>
+            <tuv lang="sl">
+                <seg>It is bordered by Italy to the west, Austria to the north, Hungary to the northeast, Croatia to the southeast, and the Adriatic Sea to the southwest.</seg>
+            </tuv>
+            <tuv lang="en">
+                <seg></seg>
+            </tuv>
+            <tuv lang="sl">
+                <seg>Slovenes constitute over 80% of the country's population.</seg>
+            </tuv>
+            <tuv lang="en">
+                <seg></seg>
+            </tuv>
+            <tuv lang="sl">
+                <seg>Slovenia has a predominantly temperate continental climate, with the exception of the Slovene Littoral and the Julian Alps.</seg>
+            </tuv>
+            <tuv lang="en">
+                <seg></seg>
+            </tuv>
+            <tuv lang="sl">
+                <seg>The Julian Alps in the northwest have an alpine climate. Toward the northeastern Pannonian Basin, a continental climate is more pronounced.</seg>
+            </tuv>
+            <tuv lang="en">
+                <seg></seg>
+            </tuv>
+            <tuv lang="sl"/>
+            <tuv lang="en">
+                <seg></seg>
+            </tuv>
+        </tu>
+    </body>
+</tmx>

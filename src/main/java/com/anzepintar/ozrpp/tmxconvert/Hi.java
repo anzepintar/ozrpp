@@ -6,7 +6,7 @@
 //
 
 
-package com.anzepintar.ozrpp.savedprogress;
+package com.anzepintar.ozrpp.tmxconvert;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -25,12 +25,15 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(name = "", propOrder = {
     "value"
 })
-@XmlRootElement(name = "ut")
-public class Ut {
+@XmlRootElement(name = "hi")
+public class Hi {
 
     @XmlAttribute(name = "x")
     @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
     protected String x;
+    @XmlAttribute(name = "type")
+    @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
+    protected String type;
     @XmlValue
     protected String value;
 
@@ -56,6 +59,30 @@ public class Ut {
      */
     public void setX(String value) {
         this.x = value;
+    }
+
+    /**
+     * Gets the value of the type property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * Sets the value of the type property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setType(String value) {
+        this.type = value;
     }
 
     /**

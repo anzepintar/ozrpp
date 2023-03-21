@@ -1,7 +1,5 @@
 package com.anzepintar.ozrpp.ui.controllers;
 
-import static com.anzepintar.ozrpp.ui.controllers.LauncherController.projectDirectory;
-
 import com.anzepintar.ozrpp.Ozrpp;
 import com.anzepintar.ozrpp.projectproperties.ProjectProperties;
 import jakarta.xml.bind.JAXBContext;
@@ -27,28 +25,34 @@ public class ProjectPropertiesController implements Initializable {
 
   public static String projectName = "New project";
 
-  public static String projectPath =
-      projectDirectory.getPath();
+  public static String projectPath = LauncherController.projectDir.getPath();
 
   public static String projectDir;
+
+  public static ProjectProperties projectProperties = new ProjectProperties();
   private final JAXBContext context;
   @FXML
   public TextField projectNameTextField;
+
   @FXML
   private TextField sourceFilesPathLabel;
   @FXML
-  private ComboBox<?> sourceLanguageSelector;
+  private ComboBox<?> sourceLangSelector;
   @FXML
-  private ComboBox<?> sourceLanguageTokenizerSelector;
+  private ComboBox<?> sourceLangTokenizerSelector;
   @FXML
   private TextField targetFilesPathLabel;
   @FXML
-  private ComboBox<?> targetLanguageSelector;
+  private ComboBox<?> targetLangSelector;
   @FXML
-  private ComboBox<?> targetLanguageTokenizerSelector;
+  private ComboBox<?> targetLangTokenizerSelector;
 
   public ProjectPropertiesController() throws JAXBException {
     this.context = JAXBContext.newInstance(ProjectProperties.class);
+  }
+
+  public static void initializeProjectProperties() {
+    projectProperties = new ProjectProperties();
   }
 
   @FXML
@@ -57,11 +61,8 @@ public class ProjectPropertiesController implements Initializable {
     projectName = projectNameTextField.getText();
     projectDir = projectPath + File.separator + projectName + File.separator;
 
-    sourceFilesPathLabel.setText(
-        projectDir
-            + "source" + File.separator);
-    targetFilesPathLabel.setText(
-        projectDir + "target" + File.separator);
+    sourceFilesPathLabel.setText(projectDir + "source" + File.separator);
+    targetFilesPathLabel.setText(projectDir + "target" + File.separator);
   }
 
   @FXML
@@ -83,21 +84,20 @@ public class ProjectPropertiesController implements Initializable {
   }
 
   @FXML
-  void saveProjectPreferencesChanges(MouseEvent event) throws IOException, JAXBException {
+  public void saveProjectPreferencesChanges(MouseEvent event) throws IOException, JAXBException {
 
-    ProjectProperties project = new ProjectProperties(
-        projectDir + "source",
+    projectProperties.setProjectProperties(projectDir + "source",
         projectDir + "target",
-        sourceLanguageSelector.getItems().toString(),
-        targetLanguageSelector.getItems().toString());
+        sourceLangSelector.getItems().toString(),
+        targetLangSelector.getItems().toString());
 
     new File(projectDir + projectName).mkdirs();
     Marshaller marshaller = this.context.createMarshaller();
     marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-    marshaller.marshal(project, new File(projectDir, projectName + ".xml"));
+    marshaller.marshal(projectProperties, new File(projectDir, projectName + ".xml"));
 
-    new File(project.getSource_dir()).mkdirs();
-    new File(project.getTarget_dir()).mkdirs();
+    new File(projectProperties.getSource_dir()).mkdirs();
+    new File(projectProperties.getTarget_dir()).mkdirs();
 
     // not implemented yet
     new File(projectDir, "ozrpp").mkdirs();
@@ -105,7 +105,7 @@ public class ProjectPropertiesController implements Initializable {
     new File(projectDir, projectName + ".ozrpp").createNewFile();
 
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    stage.setTitle(projectDirectory.getAbsolutePath());
+    stage.setTitle(LauncherController.projectDir.getAbsolutePath());
     Ozrpp.setRoot("ui/editorScene");
     stage.getScene().getWindow().sizeToScene();
 

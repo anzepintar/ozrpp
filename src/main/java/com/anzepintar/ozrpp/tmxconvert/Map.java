@@ -6,14 +6,13 @@
 //
 
 
-package com.anzepintar.ozrpp.savedprogress;
+package com.anzepintar.ozrpp.tmxconvert;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
-import jakarta.xml.bind.annotation.XmlValue;
 import jakarta.xml.bind.annotation.adapters.NormalizedStringAdapter;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -22,91 +21,117 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "value"
-})
-@XmlRootElement(name = "hi")
-public class Hi {
+@XmlType(name = "")
+@XmlRootElement(name = "map")
+public class Map {
 
-    @XmlAttribute(name = "x")
+    @XmlAttribute(name = "unicode", required = true)
     @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
-    protected String x;
-    @XmlAttribute(name = "type")
+    protected String unicode;
+    @XmlAttribute(name = "code")
     @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
-    protected String type;
-    @XmlValue
-    protected String value;
+    protected String code;
+    @XmlAttribute(name = "ent")
+    @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
+    protected String ent;
+    @XmlAttribute(name = "subst")
+    @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
+    protected String subst;
 
     /**
-     * Gets the value of the x property.
+     * Gets the value of the unicode property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getX() {
-        return x;
+    public String getUnicode() {
+        return unicode;
     }
 
     /**
-     * Sets the value of the x property.
+     * Sets the value of the unicode property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setX(String value) {
-        this.x = value;
+    public void setUnicode(String value) {
+        this.unicode = value;
     }
 
     /**
-     * Gets the value of the type property.
+     * Gets the value of the code property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getType() {
-        return type;
+    public String getCode() {
+        return code;
     }
 
     /**
-     * Sets the value of the type property.
+     * Sets the value of the code property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setType(String value) {
-        this.type = value;
+    public void setCode(String value) {
+        this.code = value;
     }
 
     /**
-     * Gets the value of the value property.
+     * Gets the value of the ent property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getvalue() {
-        return value;
+    public String getEnt() {
+        return ent;
     }
 
     /**
-     * Sets the value of the value property.
+     * Sets the value of the ent property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setvalue(String value) {
-        this.value = value;
+    public void setEnt(String value) {
+        this.ent = value;
+    }
+
+    /**
+     * Gets the value of the subst property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getSubst() {
+        return subst;
+    }
+
+    /**
+     * Sets the value of the subst property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setSubst(String value) {
+        this.subst = value;
     }
 
 }

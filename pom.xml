@@ -67,30 +67,55 @@
     <dependency>
       <artifactId>javafx-controls</artifactId>
       <groupId>org.openjfx</groupId>
-      <version>19</version>
+      <version>19.0.2.1</version>
     </dependency>
     <dependency>
       <artifactId>javafx-fxml</artifactId>
       <groupId>org.openjfx</groupId>
-      <version>19</version>
+      <version>19.0.2.1</version>
     </dependency>
 
-    <!--https://stackoverflow.com/a/52502208/15035986 - jakarta se je preimenovala v jakarta-->
+    <!--https://stackoverflow.com/a/52502208/15035986 - javax se je preimenovala v jakarta-->
     <dependency>
-      <groupId>jakarta.xml.bind</groupId>
       <artifactId>jakarta.xml.bind-api</artifactId>
+      <groupId>jakarta.xml.bind</groupId>
       <version>4.0.0</version>
     </dependency>
     <dependency>
-      <groupId>com.sun.xml.bind</groupId>
       <artifactId>jaxb-impl</artifactId>
-      <version>4.0.0</version>
+      <groupId>com.sun.xml.bind</groupId>
       <scope>runtime</scope>
+      <version>4.0.2</version>
     </dependency>
+    <!-- Apache POI Core -->
+    <dependency>
+      <artifactId>poi</artifactId>
+      <groupId>org.apache.poi</groupId>
+      <version>5.2.2</version>
+    </dependency>
+
+    <!-- Apache POI OOXML -->
+    <dependency>
+      <artifactId>poi-ooxml</artifactId>
+      <groupId>org.apache.poi</groupId>
+      <version>5.2.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.odftoolkit</groupId>
+      <artifactId>odfdom-java</artifactId>
+      <version>0.11.0</version>
+    </dependency>
+    <dependency>
+      <groupId>xerces</groupId>
+      <artifactId>xercesImpl</artifactId>
+      <version>2.12.2</version>
+    </dependency>
+
+
     <dependency>
       <artifactId>javassist</artifactId>
       <groupId>org.javassist</groupId>
-      <version>3.25.0-GA</version>
+      <version>3.29.2-GA</version>
     </dependency>
     <dependency>
       <artifactId>junit-jupiter</artifactId>
@@ -103,6 +128,12 @@
       <groupId>junit</groupId>
       <scope>test</scope>
       <version>4.13.2</version>
+    </dependency>
+    <dependency>
+      <artifactId>annotations</artifactId>
+      <groupId>org.jetbrains</groupId>
+      <scope>compile</scope>
+      <version>24.0.1</version>
     </dependency>
   </dependencies>
   <groupId>com.anzepintar</groupId>

@@ -6,7 +6,7 @@
 //
 
 
-package com.anzepintar.ozrpp.savedprogress;
+package com.anzepintar.ozrpp.tmxconvert;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -25,91 +25,37 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(name = "", propOrder = {
     "value"
 })
-@XmlRootElement(name = "note")
-public class Note {
+@XmlRootElement(name = "ut")
+public class Ut {
 
-    @XmlAttribute(name = "o-encoding")
+    @XmlAttribute(name = "x")
     @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
-    protected String oEncoding;
-    @XmlAttribute(name = "xml:lang")
-    @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
-    protected String xmlLang;
-    @XmlAttribute(name = "lang")
-    @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
-    protected String lang;
+    protected String x;
     @XmlValue
     protected String value;
 
     /**
-     * Gets the value of the oEncoding property.
+     * Gets the value of the x property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getOEncoding() {
-        return oEncoding;
+    public String getX() {
+        return x;
     }
 
     /**
-     * Sets the value of the oEncoding property.
+     * Sets the value of the x property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setOEncoding(String value) {
-        this.oEncoding = value;
-    }
-
-    /**
-     * Gets the value of the xmlLang property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getXmlLang() {
-        return xmlLang;
-    }
-
-    /**
-     * Sets the value of the xmlLang property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setXmlLang(String value) {
-        this.xmlLang = value;
-    }
-
-    /**
-     * Gets the value of the lang property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getLang() {
-        return lang;
-    }
-
-    /**
-     * Sets the value of the lang property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setLang(String value) {
-        this.lang = value;
+    public void setX(String value) {
+        this.x = value;
     }
 
     /**

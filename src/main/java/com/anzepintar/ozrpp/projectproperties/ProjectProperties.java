@@ -8,6 +8,17 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ProjectProperties {
 
+  public ProjectProperties(String source_dir, String target_dir, String source_lang, String target_lang) {
+    this.source_dir = source_dir;
+    this.target_dir = target_dir;
+    this.source_lang = source_lang;
+    this.target_lang = target_lang;
+  }
+
+  public ProjectProperties() {
+
+  }
+
   public String getSource_dir() {
     return source_dir;
   }
@@ -29,15 +40,14 @@ public class ProjectProperties {
   private String source_lang;
   private String target_lang;
 
-  public ProjectProperties() {
-  }
-
-  public ProjectProperties(String source_dir, String target_dir, String source_lang, String target_lang) {
+  public void setProjectProperties(String source_dir, String target_dir, String source_lang, String target_lang) {
     this.source_dir = source_dir;
     this.target_dir = target_dir;
     this.source_lang = source_lang;
     this.target_lang = target_lang;
   }
+
+
 
   @Override
   public String toString() {

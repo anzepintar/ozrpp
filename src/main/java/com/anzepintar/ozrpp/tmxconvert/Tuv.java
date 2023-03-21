@@ -6,7 +6,7 @@
 //
 
 
-package com.anzepintar.ozrpp.savedprogress;
+package com.anzepintar.ozrpp.tmxconvert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,6 @@ import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElements;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
-import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import jakarta.xml.bind.annotation.adapters.NormalizedStringAdapter;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -28,14 +27,14 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "noteOrProp",
-    "tuv"
+    "seg"
 })
-@XmlRootElement(name = "tu")
-public class Tu {
+@XmlRootElement(name = "tuv")
+public class Tuv {
 
-    @XmlAttribute(name = "tuid")
+    @XmlAttribute(name = "xml:lang", required = true)
     @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
-    protected String tuid;
+    protected String xmlLang;
     @XmlAttribute(name = "o-encoding")
     @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
     protected String oEncoding;
@@ -63,48 +62,45 @@ public class Tu {
     @XmlAttribute(name = "changedate")
     @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
     protected String changedate;
-    @XmlAttribute(name = "segtype")
-    @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
-    protected String segtype;
-    @XmlAttribute(name = "changeid")
-    @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
-    protected String changeid;
     @XmlAttribute(name = "o-tmf")
     @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
     protected String oTmf;
-    @XmlAttribute(name = "srclang")
+    @XmlAttribute(name = "changeid")
     @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
-    protected String srclang;
+    protected String changeid;
+    @XmlAttribute(name = "lang")
+    @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
+    protected String lang;
     @XmlElements({
         @XmlElement(name = "note", type = Note.class),
         @XmlElement(name = "prop", type = Prop.class)
     })
     protected List<Object> noteOrProp;
     @XmlElement(required = true)
-    protected List<Tuv> tuv;
+    protected String seg;
 
     /**
-     * Gets the value of the tuid property.
+     * Gets the value of the xmlLang property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getTuid() {
-        return tuid;
+    public String getXmlLang() {
+        return xmlLang;
     }
 
     /**
-     * Sets the value of the tuid property.
+     * Sets the value of the xmlLang property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setTuid(String value) {
-        this.tuid = value;
+    public void setXmlLang(String value) {
+        this.xmlLang = value;
     }
 
     /**
@@ -324,27 +320,27 @@ public class Tu {
     }
 
     /**
-     * Gets the value of the segtype property.
+     * Gets the value of the oTmf property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getSegtype() {
-        return segtype;
+    public String getOTmf() {
+        return oTmf;
     }
 
     /**
-     * Sets the value of the segtype property.
+     * Sets the value of the oTmf property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setSegtype(String value) {
-        this.segtype = value;
+    public void setOTmf(String value) {
+        this.oTmf = value;
     }
 
     /**
@@ -372,51 +368,27 @@ public class Tu {
     }
 
     /**
-     * Gets the value of the oTmf property.
+     * Gets the value of the lang property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getOTmf() {
-        return oTmf;
+    public String getLang() {
+        return lang;
     }
 
     /**
-     * Sets the value of the oTmf property.
+     * Sets the value of the lang property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setOTmf(String value) {
-        this.oTmf = value;
-    }
-
-    /**
-     * Gets the value of the srclang property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getSrclang() {
-        return srclang;
-    }
-
-    /**
-     * Sets the value of the srclang property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setSrclang(String value) {
-        this.srclang = value;
+    public void setLang(String value) {
+        this.lang = value;
     }
 
     /**
@@ -450,32 +422,27 @@ public class Tu {
     }
 
     /**
-     * Gets the value of the tuv property.
+     * Gets the value of the seg property.
      * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the tuv property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getTuv().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Tuv }
-     * 
-     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
-    public List<Tuv> getTuv() {
-        if (tuv == null) {
-            tuv = new ArrayList<Tuv>();
-        }
-        return this.tuv;
+    public String getSeg() {
+        return seg;
+    }
+
+    /**
+     * Sets the value of the seg property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setSeg(String value) {
+        this.seg = value;
     }
 
 }

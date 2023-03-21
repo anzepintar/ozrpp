@@ -6,7 +6,7 @@
 //
 
 
-package com.anzepintar.ozrpp.savedprogress;
+package com.anzepintar.ozrpp.tmxconvert;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -25,91 +25,37 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(name = "", propOrder = {
     "value"
 })
-@XmlRootElement(name = "ph")
-public class Ph {
+@XmlRootElement(name = "ept")
+public class Ept {
 
-    @XmlAttribute(name = "x")
+    @XmlAttribute(name = "i", required = true)
     @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
-    protected String x;
-    @XmlAttribute(name = "assoc")
-    @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
-    protected String assoc;
-    @XmlAttribute(name = "type")
-    @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
-    protected String type;
+    protected String i;
     @XmlValue
     protected String value;
 
     /**
-     * Gets the value of the x property.
+     * Gets the value of the i property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getX() {
-        return x;
+    public String getI() {
+        return i;
     }
 
     /**
-     * Sets the value of the x property.
+     * Sets the value of the i property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setX(String value) {
-        this.x = value;
-    }
-
-    /**
-     * Gets the value of the assoc property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getAssoc() {
-        return assoc;
-    }
-
-    /**
-     * Sets the value of the assoc property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setAssoc(String value) {
-        this.assoc = value;
-    }
-
-    /**
-     * Gets the value of the type property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getType() {
-        return type;
-    }
-
-    /**
-     * Sets the value of the type property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setType(String value) {
-        this.type = value;
+    public void setI(String value) {
+        this.i = value;
     }
 
     /**

@@ -6,7 +6,7 @@
 //
 
 
-package com.anzepintar.ozrpp.savedprogress;
+package com.anzepintar.ozrpp.tmxconvert;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -25,12 +25,15 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(name = "", propOrder = {
     "value"
 })
-@XmlRootElement(name = "sub")
-public class Sub {
+@XmlRootElement(name = "ph")
+public class Ph {
 
-    @XmlAttribute(name = "datatype")
+    @XmlAttribute(name = "x")
     @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
-    protected String datatype;
+    protected String x;
+    @XmlAttribute(name = "assoc")
+    @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
+    protected String assoc;
     @XmlAttribute(name = "type")
     @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
     protected String type;
@@ -38,27 +41,51 @@ public class Sub {
     protected String value;
 
     /**
-     * Gets the value of the datatype property.
+     * Gets the value of the x property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getDatatype() {
-        return datatype;
+    public String getX() {
+        return x;
     }
 
     /**
-     * Sets the value of the datatype property.
+     * Sets the value of the x property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setDatatype(String value) {
-        this.datatype = value;
+    public void setX(String value) {
+        this.x = value;
+    }
+
+    /**
+     * Gets the value of the assoc property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getAssoc() {
+        return assoc;
+    }
+
+    /**
+     * Sets the value of the assoc property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setAssoc(String value) {
+        this.assoc = value;
     }
 
     /**

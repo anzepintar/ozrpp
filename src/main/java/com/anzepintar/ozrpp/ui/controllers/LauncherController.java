@@ -4,7 +4,6 @@ import com.anzepintar.ozrpp.Ozrpp;
 import java.io.File;
 import java.io.IOException;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
@@ -17,9 +16,9 @@ import javafx.stage.Stage;
  */
 public class LauncherController {
 
-  public DirectoryChooser directoryChooser = new DirectoryChooser();
+  public DirectoryChooser dirChooser = new DirectoryChooser();
 
-  public static File projectDirectory;
+  public static File projectDir;
   @FXML
   private Text launcherTitle;
   @FXML
@@ -28,22 +27,22 @@ public class LauncherController {
 
   @FXML
   void newProjectDialog(MouseEvent event) throws IOException {
-    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    if (directoryChooser.getInitialDirectory() != null) {
-      directoryChooser.setInitialDirectory(projectDirectory);
+    Stage stage = Ozrpp.getStage(event);
+    if (dirChooser.getInitialDirectory() != null) {
+      dirChooser.setInitialDirectory(projectDir);
     } else {
-      directoryChooser.setInitialDirectory(new File("/"));
+      dirChooser.setInitialDirectory(new File("/"));
     }
-    projectDirectory = directoryChooser.showDialog(new Stage());
+    projectDir = dirChooser.showDialog(new Stage());
 
-    stage.setTitle(projectDirectory.getAbsolutePath());
+    stage.setTitle(projectDir.getAbsolutePath());
     Ozrpp.setRoot("ui/projectPropertiesScene");
     stage.getScene().getWindow().sizeToScene();
   }
 
   @FXML
   void openProjectFromFileDialog(MouseEvent event) throws IOException {
-    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    Stage stage = Ozrpp.getStage(event);
     stage.setTitle("Editor");
     stage.setMaximized(true);
     Ozrpp.setRoot("ui/editorScene");

@@ -6,7 +6,7 @@
 //
 
 
-package com.anzepintar.ozrpp.savedprogress;
+package com.anzepintar.ozrpp.tmxconvert;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -14,7 +14,6 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.XmlValue;
-import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import jakarta.xml.bind.annotation.adapters.NormalizedStringAdapter;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -26,12 +25,12 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(name = "", propOrder = {
     "value"
 })
-@XmlRootElement(name = "it")
-public class It {
+@XmlRootElement(name = "bpt")
+public class Bpt {
 
-    @XmlAttribute(name = "pos", required = true)
-    @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
-    protected String pos;
+    @XmlAttribute(name = "i", required = true)
+    @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
+    protected String i;
     @XmlAttribute(name = "x")
     @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
     protected String x;
@@ -42,27 +41,27 @@ public class It {
     protected String value;
 
     /**
-     * Gets the value of the pos property.
+     * Gets the value of the i property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getPos() {
-        return pos;
+    public String getI() {
+        return i;
     }
 
     /**
-     * Sets the value of the pos property.
+     * Sets the value of the i property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setPos(String value) {
-        this.pos = value;
+    public void setI(String value) {
+        this.i = value;
     }
 
     /**

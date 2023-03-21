@@ -6,7 +6,7 @@
 //
 
 
-package com.anzepintar.ozrpp.savedprogress;
+package com.anzepintar.ozrpp.tmxconvert;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -14,6 +14,7 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.XmlValue;
+import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import jakarta.xml.bind.annotation.adapters.NormalizedStringAdapter;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -25,37 +26,91 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(name = "", propOrder = {
     "value"
 })
-@XmlRootElement(name = "ept")
-public class Ept {
+@XmlRootElement(name = "it")
+public class It {
 
-    @XmlAttribute(name = "i", required = true)
+    @XmlAttribute(name = "pos", required = true)
+    @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
+    protected String pos;
+    @XmlAttribute(name = "x")
     @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
-    protected String i;
+    protected String x;
+    @XmlAttribute(name = "type")
+    @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
+    protected String type;
     @XmlValue
     protected String value;
 
     /**
-     * Gets the value of the i property.
+     * Gets the value of the pos property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getI() {
-        return i;
+    public String getPos() {
+        return pos;
     }
 
     /**
-     * Sets the value of the i property.
+     * Sets the value of the pos property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setI(String value) {
-        this.i = value;
+    public void setPos(String value) {
+        this.pos = value;
+    }
+
+    /**
+     * Gets the value of the x property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getX() {
+        return x;
+    }
+
+    /**
+     * Sets the value of the x property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setX(String value) {
+        this.x = value;
+    }
+
+    /**
+     * Gets the value of the type property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * Sets the value of the type property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setType(String value) {
+        this.type = value;
     }
 
     /**
