@@ -74,6 +74,12 @@
       <groupId>org.openjfx</groupId>
       <version>19.0.2.1</version>
     </dependency>
+    <dependency>
+      <groupId>org.controlsfx</groupId>
+      <artifactId>controlsfx</artifactId>
+      <version>11.1.0</version>
+    </dependency>
+
 
     <!--https://stackoverflow.com/a/52502208/15035986 - javax se je preimenovala v jakarta-->
     <dependency>
@@ -110,7 +116,11 @@
       <artifactId>xercesImpl</artifactId>
       <version>2.12.2</version>
     </dependency>
-
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>2.17.1</version>
+    </dependency>
 
     <dependency>
       <artifactId>javassist</artifactId>
@@ -143,28 +153,6 @@
     <maven.compiler.target>11</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-  <reporting>
-    <plugins>
-      <plugin>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <configuration>
-          <configLocation>checkstyle.xml</configLocation>
-          <consoleOutput>true</consoleOutput>
-          <failsOnError>true</failsOnError>
-          <linkXRef>false</linkXRef>
-        </configuration>
-        <groupId>org.apache.maven.plugins</groupId>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <report>checkstyle</report>
-            </reports>
-          </reportSet>
-        </reportSets>
-        <version>3.2.0</version>
-      </plugin>
-    </plugins>
-  </reporting>
   <repositories>
     <repository>
       <id>central</id>

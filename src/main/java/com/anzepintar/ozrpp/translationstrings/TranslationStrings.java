@@ -1,13 +1,9 @@
 package com.anzepintar.ozrpp.translationstrings;
 
-import com.anzepintar.ozrpp.ui.customcotrols.CustomEditorSourceTextArea;
-import com.anzepintar.ozrpp.ui.customcotrols.CustomEditorStringStatusLabel;
-import com.anzepintar.ozrpp.ui.customcotrols.CustomEditorTextArea;
+import com.anzepintar.ozrpp.customcotrols.AutoResizableTextArea;
+import com.anzepintar.ozrpp.customcotrols.CustomEditorStringStatusLabel;
 import java.util.Arrays;
 
-/**
- *
- */
 public class TranslationStrings {
 
   // https://docs.lokalise.com/en/articles/3684557-translation-statuses-translated-verified-reviewed-and-completed
@@ -19,8 +15,8 @@ public class TranslationStrings {
       "completed"
   };
 
-  private CustomEditorSourceTextArea sourceStrings;
-  private CustomEditorTextArea targetStrings;
+  private AutoResizableTextArea sourceStrings;
+  private AutoResizableTextArea targetStrings;
 
   private CustomEditorStringStatusLabel stringStatus;
 
@@ -29,24 +25,24 @@ public class TranslationStrings {
    * @param targetStrings
    */
   public TranslationStrings(String sourceStrings, String targetStrings) {
-    this.sourceStrings = new CustomEditorSourceTextArea(sourceStrings);
-    this.targetStrings = new CustomEditorTextArea(targetStrings);
+    this.sourceStrings = new AutoResizableTextArea(sourceStrings);
+    this.targetStrings = new AutoResizableTextArea(targetStrings);
     this.stringStatus = new CustomEditorStringStatusLabel();
   }
 
-  public CustomEditorSourceTextArea getSourceStrings() {
+  public AutoResizableTextArea getSourceStrings() {
     return sourceStrings;
   }
 
-  public void setSourceStrings(CustomEditorSourceTextArea sourceStrings) {
+  public void setSourceStrings(AutoResizableTextArea sourceStrings) {
     this.sourceStrings = sourceStrings;
   }
 
-  public CustomEditorTextArea getTargetStrings() {
+  public AutoResizableTextArea getTargetStrings() {
     return targetStrings;
   }
 
-  public void setTargetStrings(CustomEditorTextArea targetStrings) {
+  public void setTargetStrings(AutoResizableTextArea targetStrings) {
     this.targetStrings = targetStrings;
   }
 
