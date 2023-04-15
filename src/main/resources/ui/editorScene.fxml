@@ -7,56 +7,69 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.anzepintar.ozrpp.controllers.EditorController">
+<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
+  minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0"
+  xmlns="http://javafx.com/javafx/18"
+  fx:controller="com.anzepintar.ozrpp.controllers.EditorController">
   <children>
     <MenuBar prefHeight="20">
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
-            <MenuItem fx:id="menuFileOpenFile" mnemonicParsing="false" onAction="#openFile" text="Open file" />
-            <MenuItem fx:id="menuFileSaveFile" mnemonicParsing="false" onAction="#saveFile" text="Save file" />
-                  <MenuItem fx:id="menuFileSaveToXliff" mnemonicParsing="false" onAction="#saveToXliff" text="Save to xliff" />
-            <MenuItem fx:id="menuFileCloseFile" mnemonicParsing="false" onAction="#closeFile" text="Close file" />
+            <MenuItem mnemonicParsing="false" onAction="#openFile" text="Open file"
+              fx:id="menuFileOpenFile"/>
+            <MenuItem mnemonicParsing="false" onAction="#saveFile" text="Save file"
+              fx:id="menuFileSaveFile"/>
+            <MenuItem mnemonicParsing="false" onAction="#saveToXliff" text="Save to xliff"
+              fx:id="menuFileSaveToXliff"/>
+            <MenuItem mnemonicParsing="false" onAction="#closeFile" text="Close file"
+              fx:id="menuFileCloseFile"/>
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
           <items>
-            <MenuItem fx:id="menuEditDelete" mnemonicParsing="false" onAction="#deleteSelection" text="Delete" />
-            <MenuItem fx:id="menuEditCopySource" mnemonicParsing="false" onAction="#copySelectionToTarget" text="Copy source" />
+            <MenuItem mnemonicParsing="false" onAction="#deleteSelection" text="Delete"
+              fx:id="menuEditDelete"/>
+            <MenuItem mnemonicParsing="false" onAction="#copySelectionToTarget"
+              text="Copy source" fx:id="menuEditCopySource"/>
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
           <items>
-            <MenuItem mnemonicParsing="false" text="About" />
+            <MenuItem mnemonicParsing="false" text="About"/>
           </items>
         </Menu>
       </menus>
     </MenuBar>
-    <SplitPane dividerPositions="0.75" orientation="VERTICAL" VBox.vgrow="ALWAYS">
+    <SplitPane VBox.vgrow="ALWAYS" dividerPositions="0.75" orientation="VERTICAL">
       <items>
-        <SplitPane dividerPositions="0.85" VBox.vgrow="ALWAYS">
+        <SplitPane VBox.vgrow="ALWAYS" dividerPositions="0.85">
           <items>
-            <TableView fx:id="editorDataTableView" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
+            <TableView VBox.vgrow="ALWAYS" tableMenuButtonVisible="true"
+              fx:id="editorDataTableView">
               <columns>
-                <TableColumn fx:id="sourceStringsCol" resizable="false" sortable="false" text="Source" />
-                <TableColumn fx:id="targetStringsCol" resizable="false" sortable="false" text="Target" />
-                <TableColumn fx:id="stringStatusCol" resizable="false" sortable="false" text="Completion status" />
+                <TableColumn resizable="false" sortable="false" text="Source"
+                  fx:id="sourceStringsCol"/>
+                <TableColumn resizable="false" sortable="false" text="Target"
+                  fx:id="targetStringsCol"/>
+                <TableColumn resizable="false" sortable="false" text="Completion status"
+                  fx:id="stringStatusCol"/>
               </columns>
               <padding>
-                <Insets left="-1.0" right="-1.0" />
+                <Insets left="-1.0" right="-1.0"/>
               </padding>
             </TableView>
             <VBox>
-                     <children>
-                        <ListView fx:id="projectFilesList" prefHeight="620.0" prefWidth="189.0" />
-                     </children></VBox>
+              <children>
+                <ListView prefHeight="620.0" prefWidth="189.0" fx:id="projectFilesList"/>
+              </children>
+            </VBox>
           </items>
         </SplitPane>
         <TabPane prefHeight="177.0" prefWidth="1280.0" tabClosingPolicy="UNAVAILABLE">
@@ -64,19 +77,22 @@
             <Tab text="Untitled Tab 1">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <TextArea fx:id="catMatch" layoutX="-8.0" layoutY="-13.0" prefHeight="161.0" prefWidth="1249.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                           </children></AnchorPane>
+                  <children>
+                    <TextArea AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+                      layoutX="-8.0" layoutY="-13.0" prefHeight="161.0"
+                      prefWidth="1249.0" fx:id="catMatch"/>
+                  </children>
+                </AnchorPane>
               </content>
             </Tab>
             <Tab text="Untitled Tab 2">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
               </content>
             </Tab>
             <Tab text="Untitled Tab 3">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
               </content>
             </Tab>
           </tabs>
