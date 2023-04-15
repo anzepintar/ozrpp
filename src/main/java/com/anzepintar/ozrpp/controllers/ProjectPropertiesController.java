@@ -1,7 +1,6 @@
 package com.anzepintar.ozrpp.controllers;
 
 import com.anzepintar.ozrpp.Ozrpp;
-import com.anzepintar.ozrpp.projectproperties.ProjectProperites;
 import com.anzepintar.ozrpp.projectproperties.ProjectPropertiesManager;
 import jakarta.xml.bind.JAXBException;
 import java.io.BufferedReader;
@@ -9,7 +8,13 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.text.Collator;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,10 +35,7 @@ import javafx.stage.Stage;
 
 public class ProjectPropertiesController implements Initializable {
 
-  public static String project_name = "New project";
-  public static File project_root = new File(System.getProperty("user.home"));
-  public static ProjectProperites project_properties;
-  private final ObservableList<File> selectedFiles = FXCollections.observableArrayList();
+  private final ObservableList<File> files = FXCollections.observableArrayList();
   @FXML
   public TextField projectNameTextField;
   @FXML
@@ -42,8 +44,6 @@ public class ProjectPropertiesController implements Initializable {
   private ComboBox<String> targetLangSelector;
   @FXML
   private ListView<File> fileList;
-
-  private final ObservableList<File> files = FXCollections.observableArrayList();
 
   public static Map<String, String> getLanguageCodesAndNames() throws IOException {
     Map<String, String> languages = new HashMap<>();
@@ -62,14 +62,14 @@ public class ProjectPropertiesController implements Initializable {
 
   @FXML
   void updateProjectName(KeyEvent event) {
-    project_name = projectNameTextField.getText();
+    Ozrpp.projectProperites.setProjectName(projectNameTextField.getText());
   }
 
   @FXML
   void addFile() {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Select Files");
-    fileChooser.setInitialDirectory(project_root);
+    fileChooser.setInitialDirectory(Ozrpp.projectProperites.getProjectRoot());
 
     FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter(
         "Text Files (*.txt), Word Files (*.docx), OpenDocument Text Files (*.odt)", "*.txt",
@@ -101,29 +101,49 @@ public class ProjectPropertiesController implements Initializable {
   }
 
   @FXML
-  void saveProjectPreferences(ActionEvent event) throws IOException {
+  void saveProjectPreferences(ActionEvent event) throws IOException, JAXBException {
+    String newProjectName = projectNameTextField.getText();
+    File newProjectRoot = new File(Ozrpp.projectProperites.getProjectRoot(), newProjectName);
 
-    ProjectProperites projectProperties = new ProjectProperites(project_root.getAbsolutePath(),
-        project_name, getLanguageCodesAndNames().get(targetLangSelector.getValue()),
-        getLanguageCodesAndNames().get(sourceLangSelector.getValue()));
-    if (project_root != null) {
-      try {
-        ProjectPropertiesManager.saveProperties(projectProperties);
-      } catch (JAXBException ex) {
-        ex.printStackTrace();
-      }
+    String newSourceLang = getLanguageCodesAndNames().get(sourceLangSelector.getValue());
+    String newTargetLang = getLanguageCodesAndNames().get(targetLangSelector.getValue());
+
+    Path targetDir = Paths.get(newProjectRoot.getAbsolutePath());
+    Path sourceDir = targetDir.resolve("source");
+    if (!Files.exists(sourceDir)) {
+      Files.createDirectories(sourceDir);
+    }
+
+    List<File> newSourceFiles = new ArrayList<>();
+    for (File file : files) {
+      Path sourcePath = file.toPath();
+      Path targetPath = sourceDir.resolve(sourcePath.getFileName());
+      Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
+      newSourceFiles.add(targetPath.toFile());
+    }
+
+    // Update project properties with new values
+    Ozrpp.projectProperites.setProjectName(newProjectName);
+    Ozrpp.projectProperites.setProjectRoot(newProjectRoot);
+    Ozrpp.projectProperites.setSourceLang(newSourceLang);
+    Ozrpp.projectProperites.setTargetLang(newTargetLang);
+    Ozrpp.projectProperites.setSourceFiles(Collections.unmodifiableList(newSourceFiles));
+
+    if (Ozrpp.projectProperites.getProjectName() != null) {
+      ProjectPropertiesManager.saveProperties(Ozrpp.projectProperites);
     }
 
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     stage.setTitle("Project");
     Ozrpp.setRoot("/ui/editorScene.fxml");
     stage.getScene().getWindow().sizeToScene();
-
   }
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    projectNameTextField.setText(project_name);
+    projectNameTextField.setText("New Project");
+    sourceLangSelector.getSelectionModel().select("Slovenian (sl)");
+    targetLangSelector.getSelectionModel().select("English (en)");
     fileList.setItems(files);
     ObservableList<String> langOptions;
     try {

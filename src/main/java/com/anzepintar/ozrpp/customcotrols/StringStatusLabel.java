@@ -2,11 +2,11 @@ package com.anzepintar.ozrpp.customcotrols;
 
 import javafx.scene.control.Label;
 
-public class CustomEditorStringStatusLabel extends Label {
+public class StringStatusLabel extends Label {
 
-  public CustomEditorStringStatusLabel() {
+  public StringStatusLabel() {
     super();
     setText("untranslated");
-    setHeight(50);
+    setHeight(10);
   }
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<tmx>
+    <header creationtool="ozrpp" srclang="SL"/>
+    <body>
+        <tu>
+            <tuv lang="sl">
+                <seg>SloveniaTXT, officially the Republic of Slovenia, is a country in Central Europe.</seg>
+            </tuv>
+            <tuv lang="en">
+                <seg></seg>
+            </tuv>
+        </tu>
+    </body>
+</tmx>

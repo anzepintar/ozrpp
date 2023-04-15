@@ -1,5 +1,6 @@
 package com.anzepintar.ozrpp.fileimport;
 
+import com.anzepintar.ozrpp.Ozrpp;
 import com.anzepintar.ozrpp.converters.tmxconvert.Body;
 import com.anzepintar.ozrpp.converters.tmxconvert.Header;
 import com.anzepintar.ozrpp.converters.tmxconvert.ObjectFactory;
@@ -62,7 +63,7 @@ public class FileImporter {
     m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
     m.marshal(tmxFile, System.out);
 
-    File savedfile = new File(file.getName() + ".tmx");
+    File savedfile = new File( Ozrpp.projectProperites.getProjectRoot() + file.getName() + ".tmx");
     m.marshal(tmxFile, savedfile);
   }
 

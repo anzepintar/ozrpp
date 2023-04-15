@@ -7,6 +7,7 @@ import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 import java.io.File;
 
+import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,7 +25,7 @@ public class ProjectPropertiesTest {
     Marshaller marshaller = this.context.createMarshaller();
     // formatiranje - https://stackoverflow.com/questions/46708498/jaxb-marshaller-indentation
     marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-    marshaller.marshal(new ProjectProperites("/mapa/","ime", "en", "sl"), new File("target/project.xml"));
+    marshaller.marshal(new ProjectProperites(new File("target/a"),"ime", "en", "sl", new ArrayList<>()), new File("target/project.xml"));
 
     Unmarshaller unmarshaller = this.context.createUnmarshaller();
     Object unmarshalled = unmarshaller.unmarshal(new File("target" + File.separator + "project.xml"));

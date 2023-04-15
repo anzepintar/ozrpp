@@ -10,24 +10,21 @@ public class ProjectPropertiesManager {
 
   public static void saveProperties(ProjectProperites properties) throws JAXBException {
     String projectName = properties.getProjectName();
-    String projectDirectory = properties.getProjectRoot();
-    String filePath =
-        projectDirectory + File.separator + projectName + File.separator + projectName + ".project";
 
-    File projectFolder = new File(projectDirectory + File.separator + projectName);
-    if (!projectFolder.exists()) {
-      projectFolder.mkdirs();
-    }
+    File projectFolder = new File(
+        properties.getProjectRoot().getAbsolutePath());
+    projectFolder.mkdirs();
+
     JAXBContext context = JAXBContext.newInstance(ProjectProperites.class);
     Marshaller marshaller = context.createMarshaller();
     marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-    marshaller.marshal(properties, new File(filePath));
+    marshaller.marshal(properties, new File(
+        properties.getProjectRoot().getAbsolutePath() + File.separator + projectName + ".project"));
   }
 
   public static ProjectProperites loadProperties(String filePath) throws JAXBException {
     JAXBContext context = JAXBContext.newInstance(ProjectProperites.class);
     Unmarshaller unmarshaller = context.createUnmarshaller();
     return (ProjectProperites) unmarshaller.unmarshal(new File(filePath));
-
   }
 }

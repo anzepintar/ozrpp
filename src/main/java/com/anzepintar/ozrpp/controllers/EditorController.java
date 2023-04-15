@@ -1,44 +1,52 @@
 package com.anzepintar.ozrpp.controllers;
 
 import com.anzepintar.ozrpp.Ozrpp;
-import com.anzepintar.ozrpp.fileimport.FileImporter;
 import com.anzepintar.ozrpp.converters.tmxconvert.ObjectFactory;
-import com.anzepintar.ozrpp.translationstrings.TranslationStrings;
 import com.anzepintar.ozrpp.customcotrols.AutoResizableTextArea;
-import com.anzepintar.ozrpp.customcotrols.CustomEditorStringStatusLabel;
-import java.io.BufferedWriter;
+import com.anzepintar.ozrpp.customcotrols.StringStatusLabel;
+import com.anzepintar.ozrpp.editordata.TableRowData;
+import com.anzepintar.ozrpp.fileimport.FileImporter;
+import com.anzepintar.ozrpp.fileimport.TmxReader;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.apache.commons.text.similarity.FuzzyScore;
 
 
 public class EditorController implements Initializable {
 
-  FileChooser fileChooser = new FileChooser();
-  ObservableList<TranslationStrings> editorData = FXCollections.observableArrayList();
 
+  @FXML
+  public TextArea catMatch;
+  @FXML
+  public ListView projectFilesList;
+  FileChooser fileChooser = new FileChooser();
+  ObservableList<TableRowData> editorData = FXCollections.observableArrayList();
   ObjectFactory factory = new ObjectFactory();
   @FXML
-  private TableView<TranslationStrings> editorDataTableView;
+  private TableView<TableRowData> editorDataTableView;
+  // za parameter prejme podatke in kater element prikaže
   @FXML
-  private TableColumn<TranslationStrings, AutoResizableTextArea> sourceStringsCol;
+  private TableColumn<TableRowData, AutoResizableTextArea> sourceStringsCol;
   @FXML
-  private TableColumn<TranslationStrings, AutoResizableTextArea> targetStringsCol;
+  private TableColumn<TableRowData, AutoResizableTextArea> targetStringsCol;
   @FXML
-  private TableColumn<TranslationStrings, CustomEditorStringStatusLabel> stringStatusCol;
+  private TableColumn<TableRowData, StringStatusLabel> stringStatusCol;
   @FXML
   private MenuItem menuFileCloseFile;
   @FXML
@@ -52,6 +60,45 @@ public class EditorController implements Initializable {
   @FXML
   private MenuItem menuEditDelete;
 
+  public static double fuzzySearch(String query, String target) {
+    // Convert both strings to lowercase
+    query = query.toLowerCase();
+    target = target.toLowerCase();
+
+    // Split query into individual words
+    String[] queryWords = query.split("\\W+");
+    Locale locale = new Locale("en");
+    FuzzyScore fuzzyScore = new FuzzyScore(locale);
+
+    // Calculate fuzzy match score for each word in query
+    int[] matchScores = new int[queryWords.length];
+    for (int i = 0; i < queryWords.length; i++) {
+      matchScores[i] = fuzzyScore.fuzzyScore(queryWords[i], target);
+    }
+
+    // Calculate percentage of words from query that have a match in target
+    int numMatchingWords = 0;
+    for (int score : matchScores) {
+      if (score > 0) {
+        numMatchingWords++;
+      }
+    }
+    double percentMatch = (double) numMatchingWords / queryWords.length * 100.0;
+
+    return percentMatch;
+  }
+
+  // method which displays strings from source target in textarea if fuzzy search percentage is over 50
+  public void displayMachedStrings() {
+    for (TableRowData data : editorData) {
+      if (fuzzySearch(data.getSourceStrings().getText(), data.getTargetStrings().getText())
+          > 50.0) {
+        catMatch.setText(
+            data.getSourceStrings().getText() + "\n" + data.getTargetStrings().getText());
+      }
+    }
+  }
+
   @FXML
   void closeFile(ActionEvent event) throws IOException {
     Stage stage = (Stage) menuFileCloseFile.getParentPopup().getOwnerWindow();
@@ -62,6 +109,13 @@ public class EditorController implements Initializable {
   @FXML
   void copySelectionToTarget(ActionEvent event) {
 
+  }
+
+  // method which delete text in target textarea
+  void clearTarget() {
+    if (editorDataTableView.getSelectionModel().getSelectedItem() == null) {
+      editorDataTableView.getSelectionModel().getSelectedItem().getTargetStrings().clear();
+    }
   }
 
   @FXML
@@ -77,9 +131,24 @@ public class EditorController implements Initializable {
       FileImporter fileImporter = new FileImporter();
       fileImporter.importToTmx(sourceFile, fileExtension);
     }
-    // METODA, KI PRIKAŽE TMX
+
 
   }
+  // method which get strings from tmx file and shows them in tableview
+  void showStrings() {
+    for (TableRowData data : editorData) {
+      data.getSourceStrings().setText(data.getSourceStrings().getText());
+      if (data.getTargetStrings() == null) {
+        data.getTargetStrings().setText(data.getTargetStrings().getText());
+      }
+    }
+  }
+
+  // method which get strings from tmx file and writes them into editorData
+  void importStrings() {
+
+  }
+
 
   private String getFileExtension(File file) {
     String fileName = file.getName();
@@ -91,17 +160,16 @@ public class EditorController implements Initializable {
     }
   }
 
+  //metod which saves target stringst to tmx file with use of projectProperties into target folder
   @FXML
-  void saveFile(ActionEvent event) {
-    File targetFile = fileChooser.showSaveDialog(new Stage());
-    try (BufferedWriter bw = new BufferedWriter(new FileWriter(targetFile))) {
-      for (TranslationStrings data : editorData) {
-        String targetString = data.getTargetStrings().getText();
-        bw.write(targetString);
-        bw.newLine();
-      }
-    } catch (IOException e) {
-      throw new RuntimeException(e);
+  void saveFile() {
+
+  }
+
+  //method which uses fuzy search to find simmilar string in target textarea and returns the match as percentage
+  void fuzzyFindMatch() {
+    for (TableRowData data : editorData) {
+      //
     }
   }
 
@@ -110,22 +178,40 @@ public class EditorController implements Initializable {
 
   }
 
+  void copyAllStrings() {
+    for (TableRowData data : editorData) {
+      data.getSourceStrings().setText(data.getSourceStrings().getText());
+      if (data.getTargetStrings() == null) {
+        data.getTargetStrings().setText(data.getTargetStrings().getText());
+      }
+    }
+  }
+
+  //method copy source which copy source to target in selected textarea
+
+  void copyToTarget() {
+    if (editorDataTableView.getSelectionModel().getSelectedItem() != null) {
+      editorDataTableView.getSelectionModel().getSelectedItem().getSourceStrings().setText(
+          editorDataTableView.getSelectionModel().getSelectedItem().getSourceStrings().getText());
+    }
+  }
+
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    fileChooser.setInitialDirectory(new File("/"));
-
+    String[] myStrings = TmxReader.readTmxFile("myFile.tmx");
+    //samo za izgled
     sourceStringsCol.prefWidthProperty().bind(editorDataTableView.widthProperty().multiply(0.39));
     targetStringsCol.prefWidthProperty().bind(editorDataTableView.widthProperty().multiply(0.39));
     stringStatusCol.prefWidthProperty().bind(editorDataTableView.widthProperty().multiply(0.18));
 
     sourceStringsCol.setCellValueFactory(
-        new PropertyValueFactory<TranslationStrings, AutoResizableTextArea>("sourceStrings")
+        new PropertyValueFactory<TableRowData, AutoResizableTextArea>("sourceStrings")
     );
     targetStringsCol.setCellValueFactory(
-        new PropertyValueFactory<TranslationStrings, AutoResizableTextArea>("targetStrings")
+        new PropertyValueFactory<TableRowData, AutoResizableTextArea>("targetStrings")
     );
     stringStatusCol.setCellValueFactory(
-        new PropertyValueFactory<TranslationStrings, CustomEditorStringStatusLabel>("stringStatus")
+        new PropertyValueFactory<TableRowData, StringStatusLabel>("stringStatus")
     );
     editorDataTableView.setItems(editorData);
 

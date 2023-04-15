@@ -1,33 +1,24 @@
-package com.anzepintar.ozrpp.translationstrings;
+package com.anzepintar.ozrpp.editordata;
 
 import com.anzepintar.ozrpp.customcotrols.AutoResizableTextArea;
-import com.anzepintar.ozrpp.customcotrols.CustomEditorStringStatusLabel;
+import com.anzepintar.ozrpp.customcotrols.StringStatusLabel;
 import java.util.Arrays;
 
-public class TranslationStrings {
-
-  // https://docs.lokalise.com/en/articles/3684557-translation-statuses-translated-verified-reviewed-and-completed
+public class TableRowData {
   private final String[] statusList = {
       "untranslated",
       "translated",
-      "verified",
-      "reviewed",
-      "completed"
   };
 
   private AutoResizableTextArea sourceStrings;
   private AutoResizableTextArea targetStrings;
 
-  private CustomEditorStringStatusLabel stringStatus;
+  private StringStatusLabel stringStatus;
 
-  /**
-   * @param sourceStrings
-   * @param targetStrings
-   */
-  public TranslationStrings(String sourceStrings, String targetStrings) {
+  public TableRowData(String sourceStrings, String targetStrings) {
     this.sourceStrings = new AutoResizableTextArea(sourceStrings);
     this.targetStrings = new AutoResizableTextArea(targetStrings);
-    this.stringStatus = new CustomEditorStringStatusLabel();
+    this.stringStatus = new StringStatusLabel();
   }
 
   public AutoResizableTextArea getSourceStrings() {
@@ -46,11 +37,11 @@ public class TranslationStrings {
     this.targetStrings = targetStrings;
   }
 
-  public CustomEditorStringStatusLabel getStringStatus() {
+  public StringStatusLabel getStringStatus() {
     return stringStatus;
   }
 
-  public void setStringStatus(CustomEditorStringStatusLabel stringStatus) {
+  public void setStringStatus(StringStatusLabel stringStatus) {
     try {
       if (Arrays.asList(statusList).contains(stringStatus)) {
         this.stringStatus = stringStatus;

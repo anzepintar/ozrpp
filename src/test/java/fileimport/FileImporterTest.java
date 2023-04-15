@@ -2,8 +2,8 @@ package fileimport;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.anzepintar.ozrpp.fileimport.FileImporter;
 import com.anzepintar.ozrpp.converters.tmxconvert.Tuv;
+import com.anzepintar.ozrpp.fileimport.FileImporter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;

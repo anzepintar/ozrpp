@@ -60,6 +60,43 @@
         <groupId>org.apache.maven.plugins</groupId>
         <version>3.0.0</version>
       </plugin>
+      <plugin>
+        <groupId>com.akathist.maven.plugins.launch4j</groupId>
+        <artifactId>launch4j-maven-plugin</artifactId>
+        <version>2.3.3</version>
+        <executions>
+          <execution>
+            <id>l4j-clui</id>
+            <phase>package</phase>
+            <goals>
+              <goal>launch4j</goal>
+            </goals>
+            <configuration>
+              <headerType>gui</headerType>
+              <jar>target/ozrpp-1.0.0.jar</jar>
+              <outfile>target/Ozrpp.exe</outfile>
+              <downloadUrl>http://java.com/download</downloadUrl>
+              <classPath>
+                <mainClass>com.anzepintar.ozrpp.OzrppLauncher</mainClass>
+              </classPath>
+              <icon>src/main/resources/img/icon.ico</icon>
+              <jre>
+                <path>%JAVA_HOME%</path>
+              </jre>
+              <versionInfo>
+                <fileVersion>1.0.0</fileVersion>
+                <txtFileVersion>1.0.0</txtFileVersion>
+                <productVersion>1.0.0</productVersion>
+                <txtProductVersion>1.0.0</txtProductVersion>
+                <productName>Ozrpp</productName>
+                <internalName>Ozrpp</internalName>
+                <originalFilename>Ozrpp.exe</originalFilename>
+              </versionInfo>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
     </plugins>
   </build>
 
@@ -79,9 +116,6 @@
       <artifactId>controlsfx</artifactId>
       <version>11.1.0</version>
     </dependency>
-
-
-    <!--https://stackoverflow.com/a/52502208/15035986 - javax se je preimenovala v jakarta-->
     <dependency>
       <artifactId>jakarta.xml.bind-api</artifactId>
       <groupId>jakarta.xml.bind</groupId>
@@ -93,14 +127,11 @@
       <scope>runtime</scope>
       <version>4.0.2</version>
     </dependency>
-    <!-- Apache POI Core -->
     <dependency>
       <artifactId>poi</artifactId>
       <groupId>org.apache.poi</groupId>
       <version>5.2.2</version>
     </dependency>
-
-    <!-- Apache POI OOXML -->
     <dependency>
       <artifactId>poi-ooxml</artifactId>
       <groupId>org.apache.poi</groupId>
@@ -117,11 +148,16 @@
       <version>2.12.2</version>
     </dependency>
     <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-text</artifactId>
+      <version>1.10.0</version>
+    </dependency>
+
+    <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
       <version>2.17.1</version>
     </dependency>
-
     <dependency>
       <artifactId>javassist</artifactId>
       <groupId>org.javassist</groupId>
@@ -146,6 +182,7 @@
       <version>24.0.1</version>
     </dependency>
   </dependencies>
+
   <groupId>com.anzepintar</groupId>
   <modelVersion>4.0.0</modelVersion>
   <properties>
@@ -159,5 +196,5 @@
       <url>https://repo.maven.apache.org/maven2/</url>
     </repository>
   </repositories>
-  <version>0.1</version>
+  <version>1.0.0</version>
 </project>

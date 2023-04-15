@@ -5,6 +5,7 @@ module com.anzepintar {
   requires jakarta.xml.bind;
   requires org.apache.poi.ooxml;
   requires odfdom.java;
+  requires org.apache.commons.text;
 
   exports com.anzepintar.ozrpp;
   opens com.anzepintar.ozrpp to javafx.fxml;
@@ -12,8 +13,8 @@ module com.anzepintar {
   exports com.anzepintar.ozrpp.controllers;
   opens com.anzepintar.ozrpp.controllers to javafx.fxml;
 
-  exports com.anzepintar.ozrpp.translationstrings to javafx.base;
-  opens com.anzepintar.ozrpp.translationstrings to javafx.base;
+  exports com.anzepintar.ozrpp.editordata to javafx.base;
+  opens com.anzepintar.ozrpp.editordata to javafx.base;
 
   exports com.anzepintar.ozrpp.fileexport;
   opens com.anzepintar.ozrpp.fileexport to javafx.fxml;

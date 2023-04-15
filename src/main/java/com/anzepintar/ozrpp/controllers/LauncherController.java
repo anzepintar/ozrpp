@@ -1,7 +1,6 @@
 package com.anzepintar.ozrpp.controllers;
 
 import com.anzepintar.ozrpp.Ozrpp;
-import com.anzepintar.ozrpp.projectproperties.ProjectProperites;
 import com.anzepintar.ozrpp.projectproperties.ProjectPropertiesManager;
 import jakarta.xml.bind.JAXBException;
 import java.io.File;
@@ -28,8 +27,7 @@ public class LauncherController {
     Stage stage = Ozrpp.getStage(event);
     DirectoryChooser directoryChooser = new DirectoryChooser();
     directoryChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-    ProjectPropertiesController.project_root = directoryChooser.showDialog(new Stage());
-    stage.setTitle(ProjectPropertiesController.project_root.getAbsolutePath());
+    Ozrpp.projectProperites.setProjectRoot(directoryChooser.showDialog(new Stage()));
     Ozrpp.setRoot("/ui/projectPropertiesScene.fxml");
     stage.getScene().getWindow().sizeToScene();
   }
@@ -39,8 +37,7 @@ public class LauncherController {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
     File file = fileChooser.showOpenDialog(new Stage());
-    ProjectProperites projectProperties = ProjectPropertiesManager.loadProperties(file.getAbsolutePath());
-
+    Ozrpp.projectProperites = ProjectPropertiesManager.loadProperties(file.getAbsolutePath());
     Stage stage = Ozrpp.getStage(event);
     stage.setTitle("Editor");
     stage.setMaximized(true);

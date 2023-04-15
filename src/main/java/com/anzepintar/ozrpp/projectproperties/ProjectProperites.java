@@ -2,36 +2,44 @@ package com.anzepintar.ozrpp.projectproperties;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import java.io.File;
+import java.util.List;
 
-/*
-Izgledati mora podobno kot to:
-omegat.project
-*/
-@XmlRootElement
+@XmlRootElement(name = "projectProperites")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ProjectProperites {
 
-  public ProjectProperites(String projectRoot, String projectName, String sourceLang, String targetLang) {
+  public ProjectProperites(File projectRoot, String projectName, String sourceLang, String targetLang, List<File> sourceFiles) {
     this.projectRoot = projectRoot;
     this.projectName = projectName;
     this.sourceLang = sourceLang;
     this.targetLang = targetLang;
+    this.sourceFiles = sourceFiles;
   }
 
   public ProjectProperites() {
   }
 
-  private String projectRoot;
+  @XmlElement
+  private File projectRoot;
+  @XmlElement
   private String projectName;
+  @XmlElement
   private String sourceLang;
+  @XmlElement
   private String targetLang;
+  @XmlElementWrapper(name = "sourceFiles")
+  @XmlElement(name = "file")
+  private List<File> sourceFiles;
 
-  public String getProjectRoot() {
+  public File getProjectRoot() {
     return projectRoot;
   }
 
-  public void setProjectRoot(String projectRoot) {
+  public void setProjectRoot(File projectRoot) {
     this.projectRoot = projectRoot;
   }
 
@@ -57,5 +65,13 @@ public class ProjectProperites {
 
   public void setTargetLang(String targetLang) {
     this.targetLang = targetLang;
+  }
+
+  public List<File> getSourceFiles() {
+    return sourceFiles;
+  }
+
+  public void setSourceFiles(List<File> sourceFiles) {
+    this.sourceFiles = sourceFiles;
   }
 }
