@@ -29,6 +29,5 @@ public class ProjectPropertiesTest {
 
     Unmarshaller unmarshaller = this.context.createUnmarshaller();
     Object unmarshalled = unmarshaller.unmarshal(new File("target" + File.separator + "project.xml"));
-    System.out.println("a = " + unmarshalled);
   }
 }

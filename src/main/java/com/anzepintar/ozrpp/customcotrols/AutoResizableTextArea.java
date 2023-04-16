@@ -5,7 +5,7 @@ import javafx.scene.text.Text;
 
 public class AutoResizableTextArea extends TextArea {
 
-  private static final int DEFAULT_PADDING = 10;
+  private static final int DEFAULT_PADDING = 5;
 
   public AutoResizableTextArea(String text) {
     super(text);
@@ -13,7 +13,6 @@ public class AutoResizableTextArea extends TextArea {
       setPrefHeight(calculateHeight(newValue));
     });
     setWrapText(true);
-    setHeight(100);
   }
 
   private double calculateHeight(String text) {

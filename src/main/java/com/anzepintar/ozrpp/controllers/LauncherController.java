@@ -5,6 +5,8 @@ import com.anzepintar.ozrpp.projectproperties.ProjectPropertiesManager;
 import jakarta.xml.bind.JAXBException;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
@@ -42,5 +44,10 @@ public class LauncherController {
     stage.setTitle("Editor");
     stage.setMaximized(true);
     Ozrpp.setRoot("/ui/editorScene.fxml");
+  }
+
+  @FXML
+  void openRepo(ActionEvent event) throws URISyntaxException, IOException {
+    java.awt.Desktop.getDesktop().browse(new java.net.URI("https://github.com/anzepintar/Ozrpp/"));
   }
 }

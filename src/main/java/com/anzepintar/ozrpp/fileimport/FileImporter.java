@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.odftoolkit.odfdom.doc.OdfTextDocument;
@@ -26,9 +27,7 @@ import org.w3c.dom.NodeList;
 
 public class FileImporter {
 
-  public void importToTmx(File file, String importFormat)
-      throws Exception {
-
+  public void importToTmx(File file) throws Exception {
     JAXBContext jc = JAXBContext.newInstance("com.anzepintar.ozrpp.converters.tmxconvert");
     ObjectFactory objFactory = new ObjectFactory();
 
@@ -40,82 +39,91 @@ public class FileImporter {
     Body body = new Body();
     tmxFile.setBody(body);
 
-    Tu tu = new Tu();
+    String fileName = file.getName();
+    int lastIndex = fileName.lastIndexOf(".");
+    if (lastIndex == -1) {
+      throw new IllegalArgumentException("File has no extension: " + fileName);
+    }
+    String fileExtension = fileName.substring(lastIndex + 1);
 
-    switch (importFormat) {
+    switch (fileExtension) {
       case "txt":
-        tu.getTuv().addAll(parseTxtFile(file));
+        body.getTu().addAll(parseTxtFile(file));
         break;
       case "docx":
-        tu.getTuv().addAll(parseDocxFile(file));
+        body.getTu().addAll(parseDocxFile(file));
         break;
       case "odt":
-        tu.getTuv().addAll(parseOdtFile(file));
+        body.getTu().addAll(parseOdtFile(file));
         break;
+      default:
+        throw new IllegalArgumentException("Unsupported file format: " + fileExtension);
     }
 
-
-    body.getTu().add(tu);
-    tmxFile.setBody(body);
-
-    // https://docs.oracle.com/cd/E17802_01/webservices/webservices/docs/1.5/tutorial/doc/JAXBUsing3.html
     Marshaller m = jc.createMarshaller();
     m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-    m.marshal(tmxFile, System.out);
-
-    File savedfile = new File( Ozrpp.projectProperites.getProjectRoot() + file.getName() + ".tmx");
+    File savedfile = new File(
+        Ozrpp.projectProperites.getProjectRoot().getAbsolutePath() + "/tmx/" + fileName + ".tmx");
     m.marshal(tmxFile, savedfile);
   }
 
-  public ArrayList<Tuv> parseTxtFile(File file) throws IOException {
-    ArrayList<Tuv> tuv = new ArrayList<Tuv>();
+  public List<Tu> parseTxtFile(File file) throws IOException {
+    List<Tu> tuList = new ArrayList<>();
     BufferedReader br = new BufferedReader(new FileReader(file));
 
     String line;
     while ((line = br.readLine()) != null) {
-      Tuv sourceSegment = new Tuv();
-      sourceSegment.setSeg(line);
-      sourceSegment.setLang("sl");
-      //sourceSegment.setLang(ProjectPropertiesController.projectProperties.getTarget_lang());
-      Tuv targetSegment = new Tuv();
-      targetSegment.setSeg("");
-      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss'Z'");
-      targetSegment.setCreationdate(LocalDateTime.now().format((formatter)));
-      //targetSegment.setLang(ProjectPropertiesController.projectProperties.getTarget_lang());
-      targetSegment.setLang("en");
-      tuv.add(sourceSegment);
-      tuv.add(targetSegment);
+      Tu tu = new Tu();
 
+      Tuv tuv1 = new Tuv();
+      tuv1.setSeg(line);
+      tuv1.setLang(Ozrpp.projectProperites.getSourceLang());
+      tu.getTuv().add(tuv1);
+
+
+      Tuv tuv2 = new Tuv();
+      tuv2.setSeg("");
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss'Z'");
+      tuv2.setCreationdate(LocalDateTime.now().format((formatter)));
+      tuv2.setLang(Ozrpp.projectProperites.getTargetLang());
+      tu.getTuv().add(tuv2);
+
+
+      tuList.add(tu);
     }
-    return tuv;
+    return tuList;
   }
 
-  public ArrayList<Tuv> parseDocxFile(File file) throws IOException {
-    ArrayList<Tuv> tuv = new ArrayList<>();
+  public List<Tu> parseDocxFile(File file) throws IOException {
+    List<Tu> tuList = new ArrayList<>();
 
     FileInputStream fileInputStream = new FileInputStream(file);
     XWPFDocument document = new XWPFDocument(fileInputStream);
 
     for (XWPFParagraph paragraph : document.getParagraphs()) {
-      Tuv sourceSegment = new Tuv();
-      sourceSegment.setSeg(paragraph.getText());
-      sourceSegment.setLang("sl");
-      Tuv targetSegment = new Tuv();
-      targetSegment.setSeg("");
-      targetSegment.setLang("en");
+      Tu tu = new Tu();
+
+      Tuv tuv1 = new Tuv();
+      tuv1.setSeg(paragraph.getText());
+      tuv1.setLang(Ozrpp.projectProperites.getSourceLang());
+
+      Tuv tuv2 = new Tuv();
+      tuv2.setSeg("");
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss'Z'");
-      targetSegment.setCreationdate(LocalDateTime.now().format((formatter)));
-      tuv.add(sourceSegment);
-      tuv.add(targetSegment);
+      tuv2.setCreationdate(LocalDateTime.now().format((formatter)));
+      tuv2.setLang(Ozrpp.projectProperites.getTargetLang());
+      tu.getTuv().add(tuv1);
+      tu.getTuv().add(tuv2);
+
+      tuList.add(tu);
     }
     document.close();
     fileInputStream.close();
-    return tuv;
+    return tuList;
   }
 
-  public ArrayList<Tuv> parseOdtFile(File file) throws Exception {
-    //https://odftoolkit.org/api/odfdom/index.html#The_ODF_Document_API
-    ArrayList<Tuv> tuv = new ArrayList<>();
+  public List<Tu> parseOdtFile(File file) throws Exception {
+    List<Tu> tuList = new ArrayList<>();
 
     OdfTextDocument document = OdfTextDocument.loadDocument(file);
     OfficeTextElement fileRoot = document.getContentRoot();
@@ -125,18 +133,24 @@ public class FileImporter {
       Node child = children.item(i);
       String text = child.getTextContent();
 
-      Tuv sourceSegment = new Tuv();
-      sourceSegment.setSeg(text);
-      sourceSegment.setLang("sl");
-      Tuv targetSegment = new Tuv();
-      targetSegment.setSeg("");
-      targetSegment.setLang("en");
+      Tu tu = new Tu();
+
+      Tuv tuv1 = new Tuv();
+      tuv1.setSeg(text);
+      tuv1.setLang(Ozrpp.projectProperites.getSourceLang());
+
+
+      Tuv tuv2 = new Tuv();
+      tuv2.setSeg("");
+      tuv2.setLang(Ozrpp.projectProperites.getTargetLang());
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss'Z'");
-      targetSegment.setCreationdate(LocalDateTime.now().format((formatter)));
-      tuv.add(sourceSegment);
-      tuv.add(targetSegment);
+      tuv2.setCreationdate(LocalDateTime.now().format((formatter)));
+      tu.getTuv().add(tuv1);
+      tu.getTuv().add(tuv2);
+
+      tuList.add(tu);
     }
-    return tuv;
+    return tuList;
   }
 
 }

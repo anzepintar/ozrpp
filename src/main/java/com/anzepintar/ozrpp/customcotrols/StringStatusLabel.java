@@ -4,9 +4,7 @@ import javafx.scene.control.Label;
 
 public class StringStatusLabel extends Label {
 
-  public StringStatusLabel() {
+  public StringStatusLabel(String s) {
     super();
-    setText("untranslated");
-    setHeight(10);
   }
 }

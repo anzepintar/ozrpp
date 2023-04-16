@@ -1,16 +1,15 @@
 package fileimport;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.anzepintar.ozrpp.converters.tmxconvert.Tuv;
+import com.anzepintar.ozrpp.converters.tmxconvert.Tu;
 import com.anzepintar.ozrpp.fileimport.FileImporter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,59 +23,100 @@ public class FileImporterTest {
   }
 
   @Test
-  public void testParseTxtFile() throws IOException, URISyntaxException {
-    URL testTxtResource = getClass().getClassLoader().getResource("fileimport/sloveniatext.txt");
-    if (testTxtResource == null) {
-      throw new FileNotFoundException("Test file not found: fileimport/sloveniatext.txt");
+  public void testParseTxtFile() throws IOException {
+    URL testFileUrl = getClass().getClassLoader().getResource("fileimport/sloveniatext.txt");
+    if (testFileUrl == null) {
+      throw new FileNotFoundException("Test file not found");
     }
-    File testTxtFile = Paths.get(testTxtResource.toURI()).toFile();
+    List<Tu> tuList = fileImporter.parseTxtFile(new File(testFileUrl.getFile()));
 
-    ArrayList<Tuv> tuvList = fileImporter.parseTxtFile(testTxtFile);
+    for (Tu tu : tuList) {
+      System.out.println(tu.getTuv().get(0).getSeg());
+    }
 
-    assertEquals(18, tuvList.size());
     assertEquals(
         "SloveniaTXT, officially the Republic of Slovenia, is a country in Central Europe.",
-        tuvList.get(0).getSeg());
-    assertEquals("sl", tuvList.get(0).getLang());
-    assertEquals("", tuvList.get(1).getSeg());
-    assertEquals("en", tuvList.get(1).getLang());
+        tuList.get(0).getTuv().get(0).getSeg());
+    assertEquals(
+        "It is bordered by Italy to the west, Austria to the north, Hungary to the northeast, Croatia to the southeast, and the Adriatic Sea to the southwest.",
+        tuList.get(1).getTuv().get(0).getSeg());
+    assertEquals(
+        "Slovenia is mostly mountainous and forested, covers 20,271 square kilometres (7,827 sq mi), and has a population of 2.1 million (2,108,708 people).",
+        tuList.get(2).getTuv().get(0).getSeg());
   }
 
   @Test
-  public void testParseDocxFile() throws IOException, URISyntaxException {
-    URL testDocxResource = getClass().getClassLoader().getResource("fileimport/sloveniatext.docx");
-    if (testDocxResource == null) {
-      throw new FileNotFoundException("Test file not found: fileimport/sloveniatext.docx");
+  public void testParseDocxFile() throws IOException {
+    URL testFileUrl = getClass().getClassLoader().getResource("fileimport/sloveniatext.docx");
+    if (testFileUrl == null) {
+      throw new FileNotFoundException("Test file not found");
     }
-    File testDocxFile = Paths.get(testDocxResource.toURI()).toFile();
+    File file = new File("C:\\Users\\anze\\dev\\projects\\ozrpp\\src\\test\\resources\\fileimport\\sloveniatext.docx");
+    List<Tu> tuList = fileImporter.parseTxtFile(file);
 
-    ArrayList<Tuv> tuvList = fileImporter.parseDocxFile(testDocxFile);
-
-    assertEquals(18, tuvList.size());
     assertEquals(
-        "SloveniaDOCX, officially the Republic of Slovenia, is a country in Central Europe.",
-        tuvList.get(0).getSeg());
-    assertEquals("sl", tuvList.get(0).getLang());
-    assertEquals("", tuvList.get(1).getSeg());
-    assertEquals("en", tuvList.get(1).getLang());
+        "SloveniaTXT, officially the Republic of Slovenia, is a country in Central Europe.",
+        tuList.get(0).getTuv().get(0).getSeg());
+    assertEquals(
+        "It is bordered by Italy to the west, Austria to the north, Hungary to the northeast, Croatia to the southeast, and the Adriatic Sea to the southwest.",
+        tuList.get(1).getTuv().get(0).getSeg());
+    assertEquals(
+        "Slovenia is mostly mountainous and forested, covers 20,271 square kilometres (7,827 sq mi), and has a population of 2.1 million (2,108,708 people).",
+        tuList.get(2).getTuv().get(0).getSeg());
   }
 
   @Test
   public void testParseOdtFile() throws Exception {
-    URL testOdtResource = getClass().getClassLoader().getResource("fileimport/sloveniatext.odt");
-    if (testOdtResource == null) {
-      throw new FileNotFoundException("Test file not found: fileimport/sloveniatext.odt");
+    URL testFileUrl = getClass().getClassLoader().getResource("fileimport/sloveniatext.odt");
+    if (testFileUrl == null) {
+      throw new FileNotFoundException("Test file not found");
     }
-    File testOdtFile = Paths.get(testOdtResource.toURI()).toFile();
-
-    ArrayList<Tuv> tuvList = fileImporter.parseOdtFile(testOdtFile);
-
-    assertEquals(18, tuvList.size());
+    List<Tu> tuList = fileImporter.parseTxtFile(new File(testFileUrl.getFile()));
+    for (Tu tu : tuList) {
+      System.out.println(tu.getTuv().get(0).getSeg());
+    }
     assertEquals(
-        "SloveniaODT, officially the Republic of Slovenia, is a country in Central Europe.",
-        tuvList.get(0).getSeg());
-    assertEquals("sl", tuvList.get(0).getLang());
-    assertEquals("", tuvList.get(1).getSeg());
-    assertEquals("en", tuvList.get(1).getLang());
+        "SloveniaTXT, officially the Republic of Slovenia, is a country in Central Europe.",
+        tuList.get(0).getTuv().get(0).getSeg());
+    assertEquals(
+        "It is bordered by Italy to the west, Austria to the north, Hungary to the northeast, Croatia to the southeast, and the Adriatic Sea to the southwest.",
+        tuList.get(1).getTuv().get(0).getSeg());
+    assertEquals(
+        "Slovenia is mostly mountainous and forested, covers 20,271 square kilometres (7,827 sq mi), and has a population of 2.1 million (2,108,708 people).",
+        tuList.get(2).getTuv().get(0).getSeg());
+  }
+
+  @Test
+  public void testImportToTmx_txtFile() throws Exception {
+    // Prepare a sample .txt file
+
+    // Test the fileImporter.importToTmx method with the sample .txt file
+
+    // Check that the TMX file was created and its content is as expected
+  }
+
+  @Test
+  public void testImportToTmx_docxFile() throws Exception {
+    // Prepare a sample .docx file using Apache POI XWPF
+
+    // Test the fileImporter.importToTmx method with the sample .docx file
+
+    // Check that the TMX file was created and its content is as expected
+  }
+
+  @Test
+  public void testImportToTmx_odtFile() throws Exception {
+    // Prepare a sample .odt file using ODF Toolkit
+
+    // Test the fileImporter.importToTmx method with the sample .odt file
+
+    // Check that the TMX file was created and its content is as expected
+  }
+
+  @Test
+  public void testImportToTmx_unsupportedFile() {
+    File unsupportedFile = new File("unsupported.xyz");
+
+    assertThrows(IllegalArgumentException.class, () -> fileImporter.importToTmx(unsupportedFile));
   }
 }

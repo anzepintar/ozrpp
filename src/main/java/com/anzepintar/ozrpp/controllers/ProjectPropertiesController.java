@@ -1,8 +1,8 @@
 package com.anzepintar.ozrpp.controllers;
 
 import com.anzepintar.ozrpp.Ozrpp;
+import com.anzepintar.ozrpp.fileimport.FileImporter;
 import com.anzepintar.ozrpp.projectproperties.ProjectPropertiesManager;
-import jakarta.xml.bind.JAXBException;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -101,18 +101,32 @@ public class ProjectPropertiesController implements Initializable {
   }
 
   @FXML
-  void saveProjectPreferences(ActionEvent event) throws IOException, JAXBException {
+  void saveProjectPreferences(ActionEvent event) throws Exception {
+    FileImporter fileImporter = new FileImporter();
     String newProjectName = projectNameTextField.getText();
     File newProjectRoot = new File(Ozrpp.projectProperites.getProjectRoot(), newProjectName);
 
     String newSourceLang = getLanguageCodesAndNames().get(sourceLangSelector.getValue());
     String newTargetLang = getLanguageCodesAndNames().get(targetLangSelector.getValue());
+    // Update project properties with new values
 
-    Path targetDir = Paths.get(newProjectRoot.getAbsolutePath());
-    Path sourceDir = targetDir.resolve("source");
+
+    Path sourceDir = Paths.get(newProjectRoot.getAbsolutePath()).resolve("source");
     if (!Files.exists(sourceDir)) {
       Files.createDirectories(sourceDir);
     }
+    Path tmxDir = Paths.get(newProjectRoot.getAbsolutePath()).resolve("tmx");
+    if (!Files.exists(tmxDir)) {
+      Files.createDirectories(tmxDir);
+    }
+    Path targetDir = Paths.get(newProjectRoot.getAbsolutePath()).resolve("target");
+    if (!Files.exists(targetDir)) {
+      Files.createDirectories(targetDir);
+    }
+    Ozrpp.projectProperites.setProjectName(newProjectName);
+    Ozrpp.projectProperites.setProjectRoot(newProjectRoot);
+    Ozrpp.projectProperites.setSourceLang(newSourceLang);
+    Ozrpp.projectProperites.setTargetLang(newTargetLang);
 
     List<File> newSourceFiles = new ArrayList<>();
     for (File file : files) {
@@ -120,14 +134,11 @@ public class ProjectPropertiesController implements Initializable {
       Path targetPath = sourceDir.resolve(sourcePath.getFileName());
       Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
       newSourceFiles.add(targetPath.toFile());
-    }
+      fileImporter.importToTmx(file);
 
-    // Update project properties with new values
-    Ozrpp.projectProperites.setProjectName(newProjectName);
-    Ozrpp.projectProperites.setProjectRoot(newProjectRoot);
-    Ozrpp.projectProperites.setSourceLang(newSourceLang);
-    Ozrpp.projectProperites.setTargetLang(newTargetLang);
+    }
     Ozrpp.projectProperites.setSourceFiles(Collections.unmodifiableList(newSourceFiles));
+
 
     if (Ozrpp.projectProperites.getProjectName() != null) {
       ProjectPropertiesManager.saveProperties(Ozrpp.projectProperites);

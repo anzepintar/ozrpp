@@ -6,6 +6,7 @@ module com.anzepintar {
   requires org.apache.poi.ooxml;
   requires odfdom.java;
   requires org.apache.commons.text;
+  requires java.desktop;
 
   exports com.anzepintar.ozrpp;
   opens com.anzepintar.ozrpp to javafx.fxml;

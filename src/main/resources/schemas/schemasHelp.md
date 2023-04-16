@@ -16,6 +16,6 @@ xjc .\resources\schemas\xliff\xliff-core-v2.1-os\schemas\xliff_core_2.0.xsd -d .
 
 - .dtd to java classes
 ```
-xjc -d .\java\com\anzepintar\ozrpp\converters\ -dtd .\resources\schemas\tmx\tmx14.dtd ```
+xjc -dtd .\resources\schemas\tmx\tmx14.dtd -d .\java\com\anzepintar\ozrpp\converters\
 ```
 **potrebno je zamenjati javax v jakarta**
