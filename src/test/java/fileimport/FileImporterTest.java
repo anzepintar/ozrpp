@@ -51,7 +51,7 @@ public class FileImporterTest {
     if (testFileUrl == null) {
       throw new FileNotFoundException("Test file not found");
     }
-    File file = new File("C:\\Users\\anze\\dev\\projects\\ozrpp\\src\\test\\resources\\fileimport\\sloveniatext.docx");
+    File file = new File("fileimport/sloveniatext.docx");
     List<Tu> tuList = fileImporter.parseTxtFile(file);
 
     assertEquals(

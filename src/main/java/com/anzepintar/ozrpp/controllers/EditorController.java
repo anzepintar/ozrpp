@@ -222,9 +222,9 @@ public class EditorController implements Initializable {
     // end table setup
     //for each table row add source and taget
 
-    //String filePath = Ozrpp.projectProperites.getProjectRoot().getAbsolutePath() + "/tmx/"
-    //    + Ozrpp.projectProperites.getSourceFiles().get(0).getName() + ".tmx";
-    String filePath = "C:\\Users\\anze\\dev\\projects\\ozrpp\\src\\test\\resources\\fileimport\\sloveniatext.tmx";
+    String filePath = Ozrpp.projectProperites.getProjectRoot().getAbsolutePath() + "/tmx/"
+        + Ozrpp.projectProperites.getSourceFiles().get(0).getName() + ".tmx";
+
     List<TableRow> tableRowList1 = new ArrayList<>();
 
     try {

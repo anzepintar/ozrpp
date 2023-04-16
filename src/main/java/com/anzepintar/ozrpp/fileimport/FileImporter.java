@@ -123,34 +123,44 @@ public class FileImporter {
   }
 
   public List<Tu> parseOdtFile(File file) throws Exception {
-    List<Tu> tuList = new ArrayList<>();
+    List<Tu> tus = new ArrayList<>();
 
     OdfTextDocument document = OdfTextDocument.loadDocument(file);
     OfficeTextElement fileRoot = document.getContentRoot();
     NodeList children = fileRoot.getChildNodes();
 
-    for (int i = 1; i < children.getLength(); i++) {
+    StringBuilder textBuilder = new StringBuilder();
+
+    for (int i = 0; i < children.getLength(); i++) {
       Node child = children.item(i);
-      String text = child.getTextContent();
 
-      Tu tu = new Tu();
+      if (child.getNodeType() == Node.TEXT_NODE) {
+        textBuilder.append(child.getTextContent());
+      } else if (child.getNodeType() == Node.ELEMENT_NODE) {
+        String text = textBuilder.toString().trim();
 
-      Tuv tuv1 = new Tuv();
-      tuv1.setSeg(text);
-      tuv1.setLang(Ozrpp.projectProperites.getSourceLang());
+        if (!text.isEmpty()) {
+          Tu tu = new Tu();
 
+          Tuv sourceSegment = new Tuv();
+          sourceSegment.setSeg(text);
+          sourceSegment.setLang(Ozrpp.projectProperites.getSourceLang());
+          tu.getTuv().add(sourceSegment);
 
-      Tuv tuv2 = new Tuv();
-      tuv2.setSeg("");
-      tuv2.setLang(Ozrpp.projectProperites.getTargetLang());
-      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss'Z'");
-      tuv2.setCreationdate(LocalDateTime.now().format((formatter)));
-      tu.getTuv().add(tuv1);
-      tu.getTuv().add(tuv2);
+          Tuv targetSegment = new Tuv();
+          targetSegment.setSeg("");
+          DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss'Z'");
+          targetSegment.setCreationdate(LocalDateTime.now().format((formatter)));
+          targetSegment.setLang(Ozrpp.projectProperites.getTargetLang());
+          tu.getTuv().add(targetSegment);
 
-      tuList.add(tu);
+          tus.add(tu);
+        }
+        textBuilder.setLength(0);
+      }
     }
-    return tuList;
+
+    return tus;
   }
 
 }
