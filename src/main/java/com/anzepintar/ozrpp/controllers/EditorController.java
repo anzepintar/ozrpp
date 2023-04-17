@@ -1,14 +1,15 @@
 package com.anzepintar.ozrpp.controllers;
 
 import com.anzepintar.ozrpp.Ozrpp;
-import com.anzepintar.ozrpp.converters.tmxconvert.ObjectFactory;
 import com.anzepintar.ozrpp.customcotrols.AutoResizableTextArea;
 import com.anzepintar.ozrpp.customcotrols.StringStatusLabel;
 import com.anzepintar.ozrpp.editordata.TableRow;
+import com.anzepintar.ozrpp.fileexport.TmxSaver;
 import com.anzepintar.ozrpp.fileimport.FileImporter;
 import com.anzepintar.ozrpp.fileimport.TmxLoader;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,18 +29,20 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import org.apache.commons.text.similarity.FuzzyScore;
 
 
 public class EditorController implements Initializable {
 
   @FXML
-  public TextArea catMatch;
-  @FXML
   public ListView projectFilesList;
   FileChooser fileChooser = new FileChooser();
-
-  ObjectFactory factory = new ObjectFactory();
+  @FXML
+  private TextArea catMatch;
+  @FXML
+  private MenuItem menuGetProjectSourceCode;
   @FXML
   private TableView<TableRow> tableView;
   // za parameter prejme podatke in kater element prikaže
@@ -69,7 +72,7 @@ public class EditorController implements Initializable {
   private Label ProjectNameInfo;
 
 
-  public static double fuzzySearch(String query, String target) {
+  private double fuzzySearch(String query, String target) {
     // Convert both strings to lowercase
     query = query.toLowerCase();
     target = target.toLowerCase();
@@ -97,41 +100,36 @@ public class EditorController implements Initializable {
     return percentMatch;
   }
 
-  /*public void displayMachedStrings() {
-    for (TableRow data : editorTableRow) {
-      if (fuzzySearch(data.getSourceField().getText(), data.getTargetField().getText())
-          > 50.0) {
-        catMatch.setText(
-            data.getSourceField().getText() + "\n" + data.getTargetField().getText());
-      }
-    }
-  }*/
 
   @FXML
-  void closeFile(ActionEvent event) throws IOException {
+  private void closeFile(ActionEvent event) throws IOException {
     Stage stage = (Stage) menuFileCloseFile.getParentPopup().getOwnerWindow();
     Ozrpp.setRoot("/ui/launcherScene.fxml");
     stage.getScene().getWindow().sizeToScene();
   }
 
   @FXML
-  void copySelectionToTarget(ActionEvent event) {
+  private void copySelectionToTarget(ActionEvent event) {
 
   }
 
-  // method which delete text in target textarea
-  void clearTarget() {
+  @FXML
+  private void openSourceCode(ActionEvent event) throws IOException, URISyntaxException {
+    java.awt.Desktop.getDesktop().browse(new java.net.URI("https://github.com/anzepintar/Ozrpp/"));
+  }
+
+  private void clearTarget() {
     if (tableView.getSelectionModel().getSelectedItem() == null) {
       tableView.getSelectionModel().getSelectedItem().getTargetField().clear();
     }
   }
 
   @FXML
-  void deleteSelection(ActionEvent event) {
+  private void deleteSelection(ActionEvent event) {
   }
 
   @FXML
-  void openFile(ActionEvent event) throws Exception {
+  private void openFile(ActionEvent event) throws Exception {
     File sourceFile = fileChooser.showOpenDialog(new Stage());
     if (sourceFile != null) {
       String fileExtension = getFileExtension(sourceFile);
@@ -140,21 +138,6 @@ public class EditorController implements Initializable {
       fileImporter.importToTmx(sourceFile);
     }
 
-
-  }
-
-  // method which get strings from tmx file and shows them in tableview
-  /*void showStrings() {
-    for (TableRow data : editorTableRow) {
-      data.getSourceField().setText(data.getSourceField().getText());
-      if (data.getTargetField() == null) {
-        data.getTargetField().setText(data.getTargetField().getText());
-      }
-    }
-  }*/
-
-  // method which get strings from tmx file and writes them into editorData
-  void importStrings() {
 
   }
 
@@ -169,46 +152,21 @@ public class EditorController implements Initializable {
     }
   }
 
-  //metod which saves target stringst to tmx file with use of projectProperties into target folder
+
   @FXML
-  void saveFile() {
+  private void saveToXliff(ActionEvent event) {
 
   }
 
-  //method which uses fuzy search to find simmilar string in target textarea and returns the match as percentage
-  /*void fuzzyFindMatch() {
-    for (TableRow data : editorTableRow) {
-      //
-    }
-  }*/
-
-  @FXML
-  void saveToXliff(ActionEvent event) {
-
-  }
-
-  /*void copyAllStrings() {
-    for (TableRow data : editorTableRow) {
-      data.getSourceField().setText(data.getSourceField().getText());
-      if (data.getTargetField() == null) {
-        data.getTargetField().setText(data.getTargetField().getText());
-      }
-    }
-  }*/
-
-  //method copy source which copy source to target in selected textarea
-
-  void copyToTarget() {
+  private void copyToTarget() {
     if (tableView.getSelectionModel().getSelectedItem() != null) {
       tableView.getSelectionModel().getSelectedItem().getSourceField().setText(
           tableView.getSelectionModel().getSelectedItem().getSourceField().getText());
     }
   }
 
-  @Override
-  public void initialize(URL url, ResourceBundle resourceBundle) {
+  private void setTableView() {
     // start table setup
-
     col1.prefWidthProperty().bind(tableView.widthProperty().multiply(0.39));
     col2.prefWidthProperty().bind(tableView.widthProperty().multiply(0.39));
     col3.prefWidthProperty().bind(tableView.widthProperty().multiply(0.18));
@@ -217,25 +175,57 @@ public class EditorController implements Initializable {
     col2.setCellValueFactory(new PropertyValueFactory<>("targetField"));
     col3.setCellValueFactory(new PropertyValueFactory<>("statusField"));
     // end table setup
+  }
 
+  private ObservableList<TableRow> loadTmxFile() {
     String filePath = Ozrpp.projectProperites.getProjectRoot().getAbsolutePath() + "/tmx/"
         + Ozrpp.projectProperites.getSourceFiles().get(0).getName() + ".tmx";
 
     List<TableRow> tableRowsList = new ArrayList<>();
-
     try {
       var list = TmxLoader.getTmxSourceStrings(filePath);
 
       for (int i = 0; i < list.size(); i++) {
         tableRowsList.add(new TableRow(TmxLoader.getTmxSourceStrings(filePath).get(i),
-            TmxLoader.getTmxTargetStrings(filePath).get(i), TmxLoader.getTmxStatus(filePath).get(i)));
+            TmxLoader.getTmxTargetStrings(filePath).get(i),
+            TmxLoader.getTmxStatus(filePath).get(i)));
       }
     } catch (Exception e) {
     }
 
-
     ObservableList<TableRow> observableList = FXCollections.observableList(tableRowsList);
-    tableView.setItems(observableList);
+    return observableList;
+  }
+
+
+  @FXML
+  private void saveFile() throws IOException, ParserConfigurationException, TransformerException {
+    saveTmxFile();
+  }
+
+  private void saveTmxFile()
+      throws IOException, ParserConfigurationException, TransformerException {
+    String filePath = Ozrpp.projectProperites.getProjectRoot().getAbsolutePath() + "/tmx/"
+        + Ozrpp.projectProperites.getSourceFiles().get(0).getName() + ".tmx";
+    List<String> sourceStrings = new ArrayList<>();
+    List<String> targetStrings = new ArrayList<>();
+    List<String> status = new ArrayList<>();
+
+    for (TableRow row : tableView.getItems()) {
+      sourceStrings.add(row.getSourceField().getText());
+      targetStrings.add(row.getTargetField().getText());
+      status.add(row.getStatusField().getText());
+    }
+    TmxSaver.saveTmxData(filePath, sourceStrings, targetStrings, status);
+
+
+  }
+
+  @Override
+  public void initialize(URL url, ResourceBundle resourceBundle) {
+    setTableView();
+
+    tableView.setItems(loadTmxFile());
   }
 
 }

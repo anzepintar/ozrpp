@@ -28,21 +28,16 @@ public class TmxLoader {
 
     for (int i = 0; i < tuNodes.getLength(); i++) {
       Node tuNode = tuNodes.item(i);
-
       if (tuNode.getNodeType() == Node.ELEMENT_NODE) {
         Element tuElement = (Element) tuNode;
         NodeList tuvNodes = tuElement.getElementsByTagName("tuv");
-
-        for (int j = 0; j < tuvNodes.getLength(); j++) {
-          Element tuvElement = (Element) tuvNodes.item(j);
-
+          Element tuvElement = (Element) tuvNodes.item(0);
           String sourceText = tuvElement.getElementsByTagName("seg").item(0).getTextContent();
           sourceStrings.add(sourceText);
 
-        }
+
       }
     }
-    var d = sourceStrings;
     return sourceStrings;
   }
 
@@ -59,16 +54,14 @@ public class TmxLoader {
 
     for (int i = 0; i < tuNodes.getLength(); i++) {
       Node tuNode = tuNodes.item(i);
-
       if (tuNode.getNodeType() == Node.ELEMENT_NODE) {
         Element tuElement = (Element) tuNode;
         NodeList tuvNodes = tuElement.getElementsByTagName("tuv");
+        Element tuvElement = (Element) tuvNodes.item(1);
+        String targetText = tuvElement.getElementsByTagName("seg").item(0).getTextContent();
+        targetStrings.add(targetText);
 
-        if (tuvNodes.getLength() == 2) {
-          Element targetElement = (Element) tuvNodes.item(1);
-          String targetText = targetElement.getElementsByTagName("seg").item(0).getTextContent();
-          targetStrings.add(targetText);
-        }
+
       }
     }
     return targetStrings;
@@ -87,16 +80,14 @@ public class TmxLoader {
 
     for (int i = 0; i < tuNodes.getLength(); i++) {
       Node tuNode = tuNodes.item(i);
-
       if (tuNode.getNodeType() == Node.ELEMENT_NODE) {
         Element tuElement = (Element) tuNode;
         NodeList tuvNodes = tuElement.getElementsByTagName("tuv");
+        Element tuvElement = (Element) tuvNodes.item(1);
+        String status = tuvElement.hasAttribute("changedate") ? "translated" : "untranslated";;
+        translationStatus.add(status);
 
-        if (tuvNodes.getLength() == 2) {
-          Element targetElement = (Element) tuvNodes.item(1);
-          String status = targetElement.hasAttribute("changedate") ? "translated" : "untranslated";
-          translationStatus.add(status);
-        }
+
       }
     }
     return translationStatus;
