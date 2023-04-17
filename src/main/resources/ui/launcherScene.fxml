@@ -25,7 +25,7 @@
             <Insets right="15.0" />
           </HBox.margin>
         </Button>
-        <Button mnemonicParsing="false" onMouseClicked="#openProjectFromFileDialog" prefHeight="36.0" prefWidth="103.0" text="Open Project">
+        <Button mnemonicParsing="false" onMouseClicked="#openProjectDialog" prefHeight="36.0" prefWidth="103.0" text="Open Project">
           <HBox.margin>
             <Insets left="15.0" />
           </HBox.margin>

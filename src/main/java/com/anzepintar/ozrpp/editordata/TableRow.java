@@ -1,18 +1,18 @@
 package com.anzepintar.ozrpp.editordata;
 
 import com.anzepintar.ozrpp.customcotrols.AutoResizableTextArea;
-import com.anzepintar.ozrpp.customcotrols.StringStatusLabel;
+import com.anzepintar.ozrpp.customcotrols.TranslationCheckBox;
 
 public class TableRow {
 
   private AutoResizableTextArea sourceField;
   private AutoResizableTextArea targetField;
-  private StringStatusLabel statusField;
+  private TranslationCheckBox statusCheckBox;
 
-  public TableRow(String sourceField, String targetField, String statusField) {
+  public TableRow(String sourceField, String targetField, Boolean statusCheckBox) {
     this.sourceField = new AutoResizableTextArea(sourceField);
     this.targetField = new AutoResizableTextArea(targetField);
-    this.statusField = new StringStatusLabel(statusField);
+    this.statusCheckBox = new TranslationCheckBox(statusCheckBox);
   }
 
   public AutoResizableTextArea getSourceField() {
@@ -31,11 +31,11 @@ public class TableRow {
     this.targetField = targetField;
   }
 
-  public StringStatusLabel getStatusField() {
-    return statusField;
+  public TranslationCheckBox getStatusCheckBox() {
+    return statusCheckBox;
   }
 
-  public void setStatusField(String statusField) {
+  public void setStatusCheckBox(String statusCheckBox) {
 
   }
 }

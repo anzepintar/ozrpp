@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 public class Ozrpp extends Application {
 
-  // vsi podatki so shranjeni tukaj
+  // vsi podatki projekta so shranjeni tukaj
   public static ProjectProperites projectProperites = new ProjectProperites();
 
   public static Scene scene;

@@ -61,12 +61,12 @@ public class ProjectPropertiesController implements Initializable {
 
 
   @FXML
-  void updateProjectName(KeyEvent event) {
+  private void updateProjectName(KeyEvent event) {
     Ozrpp.projectProperites.setProjectName(projectNameTextField.getText());
   }
 
   @FXML
-  void addFile() {
+  private void addFile() {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Select Files");
     fileChooser.setInitialDirectory(Ozrpp.projectProperites.getProjectRoot());
@@ -85,7 +85,7 @@ public class ProjectPropertiesController implements Initializable {
   }
 
   @FXML
-  void deleteFile(ActionEvent event) {
+  private void deleteFile(ActionEvent event) {
     ObservableList<File> selectedFiles = fileList.getSelectionModel().getSelectedItems();
     if (!selectedFiles.isEmpty()) {
       files.removeAll(selectedFiles);
@@ -93,7 +93,7 @@ public class ProjectPropertiesController implements Initializable {
   }
 
   @FXML
-  void cancelProjectPreferences(ActionEvent event) throws IOException, RuntimeException {
+  private void cancelProjectPreferences(ActionEvent event) throws IOException, RuntimeException {
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     stage.setTitle("Launcher");
     Ozrpp.setRoot("/ui/launcherScene.fxml");
@@ -101,7 +101,7 @@ public class ProjectPropertiesController implements Initializable {
   }
 
   @FXML
-  void saveProjectPreferences(ActionEvent event) throws Exception {
+  private void saveProjectPreferences(ActionEvent event) throws Exception {
     FileImporter fileImporter = new FileImporter();
     String newProjectName = projectNameTextField.getText();
     File newProjectRoot = new File(Ozrpp.projectProperites.getProjectRoot(), newProjectName);

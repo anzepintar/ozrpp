@@ -2,11 +2,12 @@ package com.anzepintar.ozrpp.controllers;
 
 import com.anzepintar.ozrpp.Ozrpp;
 import com.anzepintar.ozrpp.customcotrols.AutoResizableTextArea;
-import com.anzepintar.ozrpp.customcotrols.StringStatusLabel;
+import com.anzepintar.ozrpp.customcotrols.TranslationCheckBox;
 import com.anzepintar.ozrpp.editordata.TableRow;
 import com.anzepintar.ozrpp.fileexport.TmxSaver;
-import com.anzepintar.ozrpp.fileimport.FileImporter;
 import com.anzepintar.ozrpp.fileimport.TmxLoader;
+import com.anzepintar.ozrpp.projectproperties.ProjectPropertiesManager;
+import jakarta.xml.bind.JAXBException;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -27,6 +28,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.xml.parsers.ParserConfigurationException;
@@ -44,14 +46,14 @@ public class EditorController implements Initializable {
   @FXML
   private MenuItem menuGetProjectSourceCode;
   @FXML
-  private TableView<TableRow> tableView;
+  public TableView<TableRow> tableView;
   // za parameter prejme podatke in kater element prikaže
   @FXML
   private TableColumn<TableRow, AutoResizableTextArea> col1;
   @FXML
   private TableColumn<TableRow, AutoResizableTextArea> col2;
   @FXML
-  private TableColumn<TableRow, StringStatusLabel> col3;
+  private TableColumn<TableRow, TranslationCheckBox> col3;
   @FXML
   private MenuItem menuFileCloseFile;
   @FXML
@@ -102,7 +104,7 @@ public class EditorController implements Initializable {
 
 
   @FXML
-  private void closeFile(ActionEvent event) throws IOException {
+  private void closeProject(ActionEvent event) throws IOException {
     Stage stage = (Stage) menuFileCloseFile.getParentPopup().getOwnerWindow();
     Ozrpp.setRoot("/ui/launcherScene.fxml");
     stage.getScene().getWindow().sizeToScene();
@@ -129,16 +131,20 @@ public class EditorController implements Initializable {
   }
 
   @FXML
-  private void openFile(ActionEvent event) throws Exception {
-    File sourceFile = fileChooser.showOpenDialog(new Stage());
-    if (sourceFile != null) {
-      String fileExtension = getFileExtension(sourceFile);
+  private void newProject(MouseEvent event) throws IOException, JAXBException {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+    File file = fileChooser.showOpenDialog(new Stage());
+    Ozrpp.projectProperites = ProjectPropertiesManager.loadProperties(file.getAbsolutePath());
+    Stage stage = Ozrpp.getStage(event);
+    stage.setTitle("Editor");
+    stage.setMaximized(true);
+    Ozrpp.setRoot("/ui/editorScene.fxml");
+  }
 
-      FileImporter fileImporter = new FileImporter();
-      fileImporter.importToTmx(sourceFile);
-    }
-
-
+  @FXML
+  private void saveFile() throws IOException, ParserConfigurationException, TransformerException {
+    saveTmxFile();
   }
 
 
@@ -153,11 +159,6 @@ public class EditorController implements Initializable {
   }
 
 
-  @FXML
-  private void saveToXliff(ActionEvent event) {
-
-  }
-
   private void copyToTarget() {
     if (tableView.getSelectionModel().getSelectedItem() != null) {
       tableView.getSelectionModel().getSelectedItem().getSourceField().setText(
@@ -170,10 +171,11 @@ public class EditorController implements Initializable {
     col1.prefWidthProperty().bind(tableView.widthProperty().multiply(0.39));
     col2.prefWidthProperty().bind(tableView.widthProperty().multiply(0.39));
     col3.prefWidthProperty().bind(tableView.widthProperty().multiply(0.18));
+    tableView.setFixedCellSize(65);
 
     col1.setCellValueFactory(new PropertyValueFactory<>("sourceField"));
     col2.setCellValueFactory(new PropertyValueFactory<>("targetField"));
-    col3.setCellValueFactory(new PropertyValueFactory<>("statusField"));
+    col3.setCellValueFactory(new PropertyValueFactory<>("statusCheckBox"));
     // end table setup
   }
 
@@ -198,10 +200,9 @@ public class EditorController implements Initializable {
   }
 
 
-  @FXML
-  private void saveFile() throws IOException, ParserConfigurationException, TransformerException {
-    saveTmxFile();
+  public void exportToXliff(ActionEvent event) {
   }
+
 
   private void saveTmxFile()
       throws IOException, ParserConfigurationException, TransformerException {
@@ -209,12 +210,12 @@ public class EditorController implements Initializable {
         + Ozrpp.projectProperites.getSourceFiles().get(0).getName() + ".tmx";
     List<String> sourceStrings = new ArrayList<>();
     List<String> targetStrings = new ArrayList<>();
-    List<String> status = new ArrayList<>();
+    List<Boolean> status = new ArrayList<>();
 
     for (TableRow row : tableView.getItems()) {
       sourceStrings.add(row.getSourceField().getText());
       targetStrings.add(row.getTargetField().getText());
-      status.add(row.getStatusField().getText());
+      status.add(row.getStatusCheckBox().getState());
     }
     TmxSaver.saveTmxData(filePath, sourceStrings, targetStrings, status);
 
@@ -227,5 +228,6 @@ public class EditorController implements Initializable {
 
     tableView.setItems(loadTmxFile());
   }
+
 
 }

@@ -25,29 +25,37 @@ public class LauncherController {
 
 
   @FXML
-  void newProjectDialog(MouseEvent event) throws IOException {
+  private void newProjectDialog(MouseEvent event) throws IOException {
     Stage stage = Ozrpp.getStage(event);
     DirectoryChooser directoryChooser = new DirectoryChooser();
     directoryChooser.setInitialDirectory(new File(System.getProperty("user.home")));
     Ozrpp.projectProperites.setProjectRoot(directoryChooser.showDialog(new Stage()));
-    Ozrpp.setRoot("/ui/projectPropertiesScene.fxml");
-    stage.getScene().getWindow().sizeToScene();
+    if (Ozrpp.projectProperites.getProjectRoot() != null) {
+      Ozrpp.setRoot("/ui/projectPropertiesScene.fxml");
+      stage.getScene().getWindow().sizeToScene();
+    }
   }
 
   @FXML
-  void openProjectFromFileDialog(MouseEvent event) throws IOException, JAXBException {
+  private void openProjectDialog(MouseEvent event) throws IOException, JAXBException {
     FileChooser fileChooser = new FileChooser();
+    FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter(
+        "Ozrpp Project Files", "*.project");
+
+    fileChooser.getExtensionFilters().addAll(filter);
     fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
     File file = fileChooser.showOpenDialog(new Stage());
-    Ozrpp.projectProperites = ProjectPropertiesManager.loadProperties(file.getAbsolutePath());
-    Stage stage = Ozrpp.getStage(event);
-    stage.setTitle("Editor");
-    stage.setMaximized(true);
-    Ozrpp.setRoot("/ui/editorScene.fxml");
+    if (file != null) {
+      Ozrpp.projectProperites = ProjectPropertiesManager.loadProperties(file.getAbsolutePath());
+      Stage stage = Ozrpp.getStage(event);
+      stage.setTitle("Editor");
+      stage.setMaximized(true);
+      Ozrpp.setRoot("/ui/editorScene.fxml");
+    }
   }
 
   @FXML
-  void openRepo(ActionEvent event) throws URISyntaxException, IOException {
+  private void openRepo(ActionEvent event) throws URISyntaxException, IOException {
     java.awt.Desktop.getDesktop().browse(new java.net.URI("https://github.com/anzepintar/Ozrpp/"));
   }
 }

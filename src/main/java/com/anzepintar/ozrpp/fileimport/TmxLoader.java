@@ -67,7 +67,7 @@ public class TmxLoader {
     return targetStrings;
   }
 
-  public static List<String> getTmxStatus(String filePath)
+  public static List<Boolean> getTmxStatus(String filePath)
       throws IOException, SAXException, ParserConfigurationException {
     File file = new File(filePath);
     DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -76,7 +76,7 @@ public class TmxLoader {
     doc.getDocumentElement().normalize();
 
     NodeList tuNodes = doc.getElementsByTagName("tu");
-    List<String> translationStatus = new ArrayList<>();
+    List<Boolean> translationStatus = new ArrayList<>();
 
     for (int i = 0; i < tuNodes.getLength(); i++) {
       Node tuNode = tuNodes.item(i);
@@ -84,7 +84,7 @@ public class TmxLoader {
         Element tuElement = (Element) tuNode;
         NodeList tuvNodes = tuElement.getElementsByTagName("tuv");
         Element tuvElement = (Element) tuvNodes.item(1);
-        String status = tuvElement.hasAttribute("changedate") ? "translated" : "untranslated";;
+        Boolean status = tuvElement.hasAttribute("changedate") ? true : false;;
         translationStatus.add(status);
 
 

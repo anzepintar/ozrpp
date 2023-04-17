@@ -34,7 +34,7 @@ public class TmxLoaderTest {
 
   @Test
   public void testGetTmxStatus() throws IOException, SAXException, ParserConfigurationException {
-    List<String> translationStatus = TmxLoader.getTmxStatus(tmxFilePath);
-    assertEquals("untranslated", translationStatus.get(0));
+    List<Boolean> translationStatus = TmxLoader.getTmxStatus(tmxFilePath);
+    assertEquals(false, translationStatus.get(0));
   }
 }
