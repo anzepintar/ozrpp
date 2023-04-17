@@ -28,13 +28,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javax.xml.parsers.ParserConfigurationException;
 import org.apache.commons.text.similarity.FuzzyScore;
-import org.xml.sax.SAXException;
 
 
 public class EditorController implements Initializable {
-
 
   @FXML
   public TextArea catMatch;
@@ -220,27 +217,24 @@ public class EditorController implements Initializable {
     col2.setCellValueFactory(new PropertyValueFactory<>("targetField"));
     col3.setCellValueFactory(new PropertyValueFactory<>("statusField"));
     // end table setup
-    //for each table row add source and taget
 
     String filePath = Ozrpp.projectProperites.getProjectRoot().getAbsolutePath() + "/tmx/"
         + Ozrpp.projectProperites.getSourceFiles().get(0).getName() + ".tmx";
 
-    List<TableRow> tableRowList1 = new ArrayList<>();
+    List<TableRow> tableRowsList = new ArrayList<>();
 
     try {
-      tableRowList1.add(new TableRow(TmxLoader.getTmxSourceStrings(filePath).get(0),
-          TmxLoader.getTmxTargetStrings(filePath).get(0), TmxLoader.getTmxStatus(filePath).get(0)));
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    } catch (SAXException e) {
-      throw new RuntimeException(e);
-    } catch (ParserConfigurationException e) {
-      throw new RuntimeException(e);
-    }
-    tableRowList1.add(new TableRow("aaaaaa", "aaaaaaaaaa", "translated"));
-    tableRowList1.add(new TableRow("aaaaaa", "aaaaaaaaaa", "translated"));
+      var list = TmxLoader.getTmxSourceStrings(filePath);
 
-    ObservableList<TableRow> observableList = FXCollections.observableList(tableRowList1);
+      for (int i = 0; i < list.size(); i++) {
+        tableRowsList.add(new TableRow(TmxLoader.getTmxSourceStrings(filePath).get(i),
+            TmxLoader.getTmxTargetStrings(filePath).get(i), TmxLoader.getTmxStatus(filePath).get(i)));
+      }
+    } catch (Exception e) {
+    }
+
+
+    ObservableList<TableRow> observableList = FXCollections.observableList(tableRowsList);
     tableView.setItems(observableList);
   }
 

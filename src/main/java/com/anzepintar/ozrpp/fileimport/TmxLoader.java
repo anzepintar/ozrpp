@@ -33,13 +33,16 @@ public class TmxLoader {
         Element tuElement = (Element) tuNode;
         NodeList tuvNodes = tuElement.getElementsByTagName("tuv");
 
-        if (tuvNodes.getLength() == 2) {
-          Element sourceElement = (Element) tuvNodes.item(0);
-          String sourceText = sourceElement.getElementsByTagName("seg").item(0).getTextContent();
+        for (int j = 0; j < tuvNodes.getLength(); j++) {
+          Element tuvElement = (Element) tuvNodes.item(j);
+
+          String sourceText = tuvElement.getElementsByTagName("seg").item(0).getTextContent();
           sourceStrings.add(sourceText);
+
         }
       }
     }
+    var d = sourceStrings;
     return sourceStrings;
   }
 

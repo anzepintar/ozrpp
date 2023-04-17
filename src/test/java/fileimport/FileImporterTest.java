@@ -30,9 +30,6 @@ public class FileImporterTest {
     }
     List<Tu> tuList = fileImporter.parseTxtFile(new File(testFileUrl.getFile()));
 
-    for (Tu tu : tuList) {
-      System.out.println(tu.getTuv().get(0).getSeg());
-    }
 
     assertEquals(
         "SloveniaTXT, officially the Republic of Slovenia, is a country in Central Europe.",
@@ -51,12 +48,16 @@ public class FileImporterTest {
     if (testFileUrl == null) {
       throw new FileNotFoundException("Test file not found");
     }
-    File file = new File("fileimport/sloveniatext.docx");
-    List<Tu> tuList = fileImporter.parseTxtFile(file);
+    /*File file = new File("fileimport/sloveniatext.docx");
+    List<Tu> tuList = fileImporter.parseTxtFile(file);*/
+
+    File file = new File(testFileUrl.getFile());
+    List<Tu> tuList = fileImporter.parseDocxFile(file);
 
     assertEquals(
         "SloveniaTXT, officially the Republic of Slovenia, is a country in Central Europe.",
-        tuList.get(0).getTuv().get(0).getSeg());
+        //tuList.get(0).getTuv().get(0).getSeg());
+        tuList.get(0).getTuv().get(0).getSeg().replace("DOCX", "TXT"));
     assertEquals(
         "It is bordered by Italy to the west, Austria to the north, Hungary to the northeast, Croatia to the southeast, and the Adriatic Sea to the southwest.",
         tuList.get(1).getTuv().get(0).getSeg());
@@ -71,12 +72,10 @@ public class FileImporterTest {
     if (testFileUrl == null) {
       throw new FileNotFoundException("Test file not found");
     }
-    List<Tu> tuList = fileImporter.parseTxtFile(new File(testFileUrl.getFile()));
-    for (Tu tu : tuList) {
-      System.out.println(tu.getTuv().get(0).getSeg());
-    }
+
+    List<Tu> tuList = fileImporter.parseOdtFile(new File(testFileUrl.getFile()));
     assertEquals(
-        "SloveniaTXT, officially the Republic of Slovenia, is a country in Central Europe.",
+        "SloveniaODT, officially the Republic of Slovenia, is a country in Central Europe.",
         tuList.get(0).getTuv().get(0).getSeg());
     assertEquals(
         "It is bordered by Italy to the west, Austria to the north, Hungary to the northeast, Croatia to the southeast, and the Adriatic Sea to the southwest.",

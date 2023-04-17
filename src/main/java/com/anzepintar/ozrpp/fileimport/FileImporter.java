@@ -9,11 +9,11 @@ import com.anzepintar.ozrpp.converters.tmxconvert.Tu;
 import com.anzepintar.ozrpp.converters.tmxconvert.Tuv;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Marshaller;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -21,8 +21,7 @@ import java.util.List;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.odftoolkit.odfdom.doc.OdfTextDocument;
-import org.odftoolkit.odfdom.dom.element.office.OfficeTextElement;
-import org.w3c.dom.Node;
+import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 public class FileImporter {
@@ -68,27 +67,21 @@ public class FileImporter {
   }
 
   public List<Tu> parseTxtFile(File file) throws IOException {
+
     List<Tu> tuList = new ArrayList<>();
-    BufferedReader br = new BufferedReader(new FileReader(file));
+    byte[] bytes = Files.readAllBytes(file.toPath());
+    String content = new String(bytes, StandardCharsets.UTF_8);
 
-    String line;
-    while ((line = br.readLine()) != null) {
+    String[] sentences = content.split("(?<=[.!?])\\s+");
+    for (int i = 0; i < sentences.length; i++) {
+      if(sentences[i].isEmpty()) {
+        continue;
+      }
+      Tuv tuv1 = createSourceSegment(sentences[i]);
+      Tuv tuv2 = createTargetSegment();
       Tu tu = new Tu();
-
-      Tuv tuv1 = new Tuv();
-      tuv1.setSeg(line);
-      tuv1.setLang(Ozrpp.projectProperites.getSourceLang());
       tu.getTuv().add(tuv1);
-
-
-      Tuv tuv2 = new Tuv();
-      tuv2.setSeg("");
-      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss'Z'");
-      tuv2.setCreationdate(LocalDateTime.now().format((formatter)));
-      tuv2.setLang(Ozrpp.projectProperites.getTargetLang());
       tu.getTuv().add(tuv2);
-
-
       tuList.add(tu);
     }
     return tuList;
@@ -101,17 +94,14 @@ public class FileImporter {
     XWPFDocument document = new XWPFDocument(fileInputStream);
 
     for (XWPFParagraph paragraph : document.getParagraphs()) {
+      if (paragraph.isEmpty()) {
+        continue;
+      }
       Tu tu = new Tu();
 
-      Tuv tuv1 = new Tuv();
-      tuv1.setSeg(paragraph.getText());
-      tuv1.setLang(Ozrpp.projectProperites.getSourceLang());
+      Tuv tuv1 = createSourceSegment(paragraph.getText());
+      Tuv tuv2 = createTargetSegment();
 
-      Tuv tuv2 = new Tuv();
-      tuv2.setSeg("");
-      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss'Z'");
-      tuv2.setCreationdate(LocalDateTime.now().format((formatter)));
-      tuv2.setLang(Ozrpp.projectProperites.getTargetLang());
       tu.getTuv().add(tuv1);
       tu.getTuv().add(tuv2);
 
@@ -123,44 +113,44 @@ public class FileImporter {
   }
 
   public List<Tu> parseOdtFile(File file) throws Exception {
-    List<Tu> tus = new ArrayList<>();
-
-    OdfTextDocument document = OdfTextDocument.loadDocument(file);
-    OfficeTextElement fileRoot = document.getContentRoot();
-    NodeList children = fileRoot.getChildNodes();
-
-    StringBuilder textBuilder = new StringBuilder();
-
-    for (int i = 0; i < children.getLength(); i++) {
-      Node child = children.item(i);
-
-      if (child.getNodeType() == Node.TEXT_NODE) {
-        textBuilder.append(child.getTextContent());
-      } else if (child.getNodeType() == Node.ELEMENT_NODE) {
-        String text = textBuilder.toString().trim();
-
-        if (!text.isEmpty()) {
-          Tu tu = new Tu();
-
-          Tuv sourceSegment = new Tuv();
-          sourceSegment.setSeg(text);
-          sourceSegment.setLang(Ozrpp.projectProperites.getSourceLang());
-          tu.getTuv().add(sourceSegment);
-
-          Tuv targetSegment = new Tuv();
-          targetSegment.setSeg("");
-          DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss'Z'");
-          targetSegment.setCreationdate(LocalDateTime.now().format((formatter)));
-          targetSegment.setLang(Ozrpp.projectProperites.getTargetLang());
-          tu.getTuv().add(targetSegment);
-
-          tus.add(tu);
-        }
-        textBuilder.setLength(0);
+    List<Tu> tuList = new ArrayList<>();
+    OdfTextDocument doc = OdfTextDocument.loadDocument(file);
+    Element contentRoot = doc.getContentDom().getDocumentElement();
+    NodeList paragraphs = contentRoot.getElementsByTagName("text:p");
+    String[] sentences = new String[paragraphs.getLength()];
+    for (int i = 0; i < paragraphs.getLength(); i++) {
+      Element paragraph = (Element) paragraphs.item(i);
+      if (paragraph.getTextContent().isEmpty()) {
+        continue;
       }
+      sentences[i] = paragraph.getTextContent();
     }
-
-    return tus;
+    doc.close();
+    for (int i = 0; i < sentences.length; i++) {
+      Tuv tuv1 = createSourceSegment(sentences[i]);
+      Tuv tuv2 = createTargetSegment();
+      Tu tu = new Tu();
+      tu.getTuv().add(tuv1);
+      tu.getTuv().add(tuv2);
+      tuList.add(tu);
+    }
+    return tuList;
   }
 
+
+  private Tuv createSourceSegment(String text) {
+    Tuv sourceSegment = new Tuv();
+    sourceSegment.setSeg(text);
+    sourceSegment.setLang(Ozrpp.projectProperites.getSourceLang());
+    return sourceSegment;
+  }
+
+  private Tuv createTargetSegment() {
+    Tuv targetSegment = new Tuv();
+    targetSegment.setSeg("");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss'Z'");
+    targetSegment.setCreationdate(LocalDateTime.now().format((formatter)));
+    targetSegment.setLang(Ozrpp.projectProperites.getTargetLang());
+    return targetSegment;
+  }
 }
