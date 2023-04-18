@@ -88,7 +88,7 @@ public class EditorController implements Initializable {
 
 
   @FXML
-  private void saveFile() throws IOException, ParserConfigurationException, TransformerException {
+  private void saveFile() throws ParserConfigurationException, TransformerException {
     saveTmxFile();
   }
 
