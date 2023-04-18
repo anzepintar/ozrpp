@@ -1,9 +1,8 @@
 package com.anzepintar.ozrpp.fileexport;
 
+import com.anzepintar.ozrpp.Ozrpp;
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -28,27 +27,27 @@ public class TmxSaver {
 
     // Create root element
     Element rootElement = document.createElement("tmx");
+    rootElement.setAttribute("version", "1.4");
     document.appendChild(rootElement);
+
+
 
     for (int i = 0; i < sourceStrings.size(); i++) {
       Element tuElement = document.createElement("tu");
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss'Z'");
-        tuElement.setAttribute("changedate", LocalDateTime.now().format((formatter)));
 
 
       // Create source element
-      Element sourceElement = createTuvElement(document, "source", sourceStrings.get(i));
+      Element sourceElement = createTuvElement(document, Ozrpp.projectProperites.getSourceLang(), sourceStrings.get(i));
       tuElement.appendChild(sourceElement);
 
       // Create target element
-      Element targetElement = createTuvElement(document, "target", targetStrings.get(i));
+      Element targetElement = createTuvElement(document, Ozrpp.projectProperites.getTargetLang(), targetStrings.get(i));
       tuElement.appendChild(targetElement);
 
       rootElement.appendChild(tuElement);
     }
 
-    // Save the content to XML file
     TransformerFactory transformerFactory = TransformerFactory.newInstance();
     Transformer transformer = transformerFactory.newTransformer();
     transformer.setOutputProperty("indent", "yes");
@@ -60,7 +59,7 @@ public class TmxSaver {
 
   private static Element createTuvElement(Document doc, String type, String textContent) {
     Element tuvElement = doc.createElement("tuv");
-    tuvElement.setAttribute("lang", type);
+    tuvElement.setAttribute("xml:lang", type);
 
     Element segElement = doc.createElement("seg");
     segElement.setTextContent(textContent);

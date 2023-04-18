@@ -2,7 +2,9 @@ package com.anzepintar.ozrpp;
 
 import com.anzepintar.ozrpp.projectproperties.ProjectProperites;
 import java.io.IOException;
+import java.util.Objects;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -14,7 +16,6 @@ import javafx.stage.Stage;
 
 public class Ozrpp extends Application {
 
-  // vsi podatki projekta so shranjeni tukaj
   public static ProjectProperites projectProperites = new ProjectProperites();
 
   public static Scene scene;
@@ -28,7 +29,10 @@ public class Ozrpp extends Application {
     return fxmlLoader.load();
   }
 
-  public static Stage getStage(MouseEvent event) {
+  public static Stage getStageM(MouseEvent event) {
+    return (Stage) ((Node) event.getSource()).getScene().getWindow();
+  }
+  public static Stage getStageA(ActionEvent event) {
     return (Stage) ((Node) event.getSource()).getScene().getWindow();
   }
 
@@ -40,8 +44,8 @@ public class Ozrpp extends Application {
   public void start(Stage stage) throws Exception {
     scene = new Scene(loadFxml("/ui/launcherScene.fxml"));
     stage.setScene(scene);
-    stage.setTitle("Ozrpp");
-    stage.getIcons().add(new Image(Ozrpp.class.getResource("/img/icon.png").openStream()));
+    stage.setTitle("Orodje za računalniško podprto prevajanje");
+    stage.getIcons().add(new Image(Objects.requireNonNull(Ozrpp.class.getResource("/img/icon.png")).openStream()));
     stage.show();
   }
 }

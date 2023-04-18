@@ -84,7 +84,7 @@ public class TmxLoader {
         Element tuElement = (Element) tuNode;
         NodeList tuvNodes = tuElement.getElementsByTagName("tuv");
         Element tuvElement = (Element) tuvNodes.item(1);
-        Boolean status = tuvElement.hasAttribute("changedate") ? true : false;;
+        Boolean status = tuvElement.hasAttribute("changedate");
         translationStatus.add(status);
 
 

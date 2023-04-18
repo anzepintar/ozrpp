@@ -1,19 +1,101 @@
-# OZRPP - Orodje za računalniško podprto prevajanje
+## Orodje za računalniško podprto prevajanje - Maturitetna seminarska naloga
 
-TODO:
 
-- [x] Uporabniški vmesnik za začetek
-  - [x] Dokončanje vseh funkcionalnosti 
-- [x] Uporabniški vmesnik za urejanje prevodov
-  - [ ] Dokončanje vseh funkcionalnosti
-- [x] Dokončna implementacija ustvarjanja projekta
-- [ ] Shranjevanje konfiguracije projekta v xml datoteko, ki je kompatibilna s tmx14
-- [ ] Ustvarjanje začasnih shranjevanj prevodov datotek v projektu
-- [ ] Dialog za dodajanje novih datotek
-- [ ] Dialog za izvažanje datotek
-- [x] Deljenje uvoženega besedila na segmente glede na povedi
-- [ ] Uvažanje datotek v različnih datotečnih formatih
-- [ ] Izvažanje datotek v različne datotečne formate
-- [ ] Izdelava dialoga z nastavitvami
-- [x] Izdelava avtomatskih testov
-- [ ] Izdelava uporabniške dokumentacije
+## Dokumentacija:
+
+- Word dokument:
+
+  https://github.com/anzepintar/ozrpp/docs/Word/
+
+- PowerPoint dokument:
+
+  https://github.com/anzepintar/ozrpp/docs/PowerPoint/
+
+- PDF dokument:
+
+  https://github.com/anzepintar/ozrpp/docs/PDF/
+
+## Struktura projekta
+```text
+pom.xml
+src/
+├── main/
+│   ├── java/
+│   │   └── com/
+│   │       ├── anzepintar/
+│   │       │   └── ozrpp/
+│   │       │       ├── Ozrpp.java
+│   │       │       ├── OzrppLauncher.java
+│   │       │       ├── controlers/
+│   │       │       │   ├── EditorController.java
+│   │       │       │   ├── LauncherController.java
+│   │       │       │   └── ProjectPropertiesController.java
+│   │       │       ├── customcotrols/
+│   │       │       │   ├── AutoResizableTextArea.java
+│   │       │       │   └── TranslationCheckBox.java
+│   │       │       ├── editordata/
+│   │       │       │   └── TableRow.java
+│   │       │       ├── fileexport/
+│   │       │       │   ├── FileExporter.java
+│   │       │       │   ├── TmxSaver.java
+│   │       │       │   └── TmxToXliffSaver.java
+│   │       │       ├── fileimport/
+│   │       │       │   ├── FileImporter.java
+│   │       │       │   └── TmxLoader.java
+│   │       │       └── generatedclasses/
+│   │       │           ├── tmxgenerated/
+│   │       │           │   ├── Body.java
+│   │       │           │   ├── Bpt.java
+│   │       │           │   ├── Ept.java
+│   │       │           │   ├── Header.java
+│   │       │           │   ├── Hi.java
+│   │       │           │   ├── It.java
+│   │       │           │   ├── Map.java
+│   │       │           │   ├── Note.java
+│   │       │           │   ├── ObjectFactory.java
+│   │       │           │   ├── Ph.java
+│   │       │           │   ├── Prop.java
+│   │       │           │   ├── Sub.java
+│   │       │           │   ├── Tmx.java
+│   │       │           │   ├── Tu.java
+│   │       │           │   ├── Tuv.java
+│   │       │           │   ├── Ude.java
+│   │       │           │   └── Ut.java
+│   │       │           └── projectproperties/
+│   │       │               ├── ProjectProperites.java
+│   │       │               └── ProjectPropertiesManager.java
+│   │       └── module-info.java    
+│   └── resources/
+│       ├── langAndCodes.csv
+│       ├── img/
+│       │   ├── icon.ico
+│       │   ├── icon.png
+│       │   └── icon.svg
+│       ├── schemas/
+│       │   ├── schemasHelp.md
+│       │   ├── tmx/
+│       │   │   └── tmx14.dtd
+│       └── ui/
+│           ├── editorScene.fxml
+│           ├── launcherScene.fxml
+│           └── projectPropertiesScene.fxml
+└── test/
+    ├── java/
+    │   ├── fileexport/
+    │   │   └── FileExporterTest.java
+    │   ├── fileimport/
+    │   │   ├── FileImporterTest.java
+    │   │   └── TmxLoaderTest.java
+    │   └── projectproperties/
+    │       └── ProjectPropertiesTest.java  
+    └── resources/
+        ├── fileexport/
+        │   ├── sloveniatext.docx.tmx
+        │   ├── sloveniatext.odt.tmx
+        │   └── sloveniatext.txt.tmx
+        └── fileimport/
+            ├── sloveniatext.docx
+            ├── sloveniatext.odt
+            ├── sloveniatext.tmx
+            └── sloveniatext.txt
+```

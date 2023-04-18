@@ -8,9 +8,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -18,19 +16,17 @@ import javafx.stage.Stage;
 
 public class LauncherController {
 
-  @FXML
-  private Text launcherTitle;
-  @FXML
-  private ListView<?> recentProjectList;
 
 
   @FXML
   private void newProjectDialog(MouseEvent event) throws IOException {
-    Stage stage = Ozrpp.getStage(event);
     DirectoryChooser directoryChooser = new DirectoryChooser();
     directoryChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-    Ozrpp.projectProperites.setProjectRoot(directoryChooser.showDialog(new Stage()));
-    if (Ozrpp.projectProperites.getProjectRoot() != null) {
+    File directory = directoryChooser.showDialog(new Stage());
+    if (directory != null) {
+      Ozrpp.projectProperites.setProjectRoot(directory);
+      Stage stage = Ozrpp.getStageM(event);
+      stage.setTitle("Project Properties");
       Ozrpp.setRoot("/ui/projectPropertiesScene.fxml");
       stage.getScene().getWindow().sizeToScene();
     }
@@ -41,16 +37,16 @@ public class LauncherController {
     FileChooser fileChooser = new FileChooser();
     FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter(
         "Ozrpp Project Files", "*.project");
-
     fileChooser.getExtensionFilters().addAll(filter);
     fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
     File file = fileChooser.showOpenDialog(new Stage());
     if (file != null) {
       Ozrpp.projectProperites = ProjectPropertiesManager.loadProperties(file.getAbsolutePath());
-      Stage stage = Ozrpp.getStage(event);
+      Stage stage = Ozrpp.getStageM(event);
       stage.setTitle("Editor");
-      stage.setMaximized(true);
       Ozrpp.setRoot("/ui/editorScene.fxml");
+      stage.getScene().getWindow().sizeToScene();
+      stage.setMaximized(true);
     }
   }
 
@@ -58,4 +54,5 @@ public class LauncherController {
   private void openRepo(ActionEvent event) throws URISyntaxException, IOException {
     java.awt.Desktop.getDesktop().browse(new java.net.URI("https://github.com/anzepintar/Ozrpp/"));
   }
+
 }

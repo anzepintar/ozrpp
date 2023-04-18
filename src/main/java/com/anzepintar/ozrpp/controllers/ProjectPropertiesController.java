@@ -85,7 +85,7 @@ public class ProjectPropertiesController implements Initializable {
   }
 
   @FXML
-  private void deleteFile(ActionEvent event) {
+  private void removeFile(ActionEvent event) {
     ObservableList<File> selectedFiles = fileList.getSelectionModel().getSelectedItems();
     if (!selectedFiles.isEmpty()) {
       files.removeAll(selectedFiles);
@@ -95,7 +95,7 @@ public class ProjectPropertiesController implements Initializable {
   @FXML
   private void cancelProjectPreferences(ActionEvent event) throws IOException, RuntimeException {
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    stage.setTitle("Launcher");
+    stage.setTitle("Orodje za računalniško podprto prevajanje");
     Ozrpp.setRoot("/ui/launcherScene.fxml");
     stage.getScene().getWindow().sizeToScene();
   }
@@ -108,7 +108,6 @@ public class ProjectPropertiesController implements Initializable {
 
     String newSourceLang = getLanguageCodesAndNames().get(sourceLangSelector.getValue());
     String newTargetLang = getLanguageCodesAndNames().get(targetLangSelector.getValue());
-    // Update project properties with new values
 
 
     Path sourceDir = Paths.get(newProjectRoot.getAbsolutePath()).resolve("source");
@@ -144,10 +143,11 @@ public class ProjectPropertiesController implements Initializable {
       ProjectPropertiesManager.saveProperties(Ozrpp.projectProperites);
     }
 
-    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    stage.setTitle("Project");
+    Stage stage = Ozrpp.getStageA(event);
+    stage.setTitle("Editor");
     Ozrpp.setRoot("/ui/editorScene.fxml");
     stage.getScene().getWindow().sizeToScene();
+    stage.setMaximized(true);
   }
 
   @Override

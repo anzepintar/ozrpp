@@ -12,7 +12,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.SearchableComboBox?>
+<!--
 
+-->
 <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.anzepintar.ozrpp.controllers.ProjectPropertiesController">
   <children>
     <Label text="Project preferences" VBox.vgrow="NEVER">
@@ -71,7 +73,7 @@
                   <Insets right="5.0" />
                </HBox.margin>
             </Button>
-        <Button onAction="#deleteFile" prefHeight="25.0" prefWidth="60.0" text="Delete" HBox.hgrow="SOMETIMES">
+        <Button onAction="#removeFile" prefHeight="25.0" prefWidth="60.0" text="Remove" HBox.hgrow="SOMETIMES">
                <HBox.margin>
                   <Insets left="5.0" />
                </HBox.margin>

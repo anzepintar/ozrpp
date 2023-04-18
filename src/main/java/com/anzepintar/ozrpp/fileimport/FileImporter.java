@@ -1,12 +1,12 @@
 package com.anzepintar.ozrpp.fileimport;
 
 import com.anzepintar.ozrpp.Ozrpp;
-import com.anzepintar.ozrpp.converters.tmxconvert.Body;
-import com.anzepintar.ozrpp.converters.tmxconvert.Header;
-import com.anzepintar.ozrpp.converters.tmxconvert.ObjectFactory;
-import com.anzepintar.ozrpp.converters.tmxconvert.Tmx;
-import com.anzepintar.ozrpp.converters.tmxconvert.Tu;
-import com.anzepintar.ozrpp.converters.tmxconvert.Tuv;
+import com.anzepintar.ozrpp.generatedclasses.tmxgenerated.Body;
+import com.anzepintar.ozrpp.generatedclasses.tmxgenerated.Header;
+import com.anzepintar.ozrpp.generatedclasses.tmxgenerated.ObjectFactory;
+import com.anzepintar.ozrpp.generatedclasses.tmxgenerated.Tmx;
+import com.anzepintar.ozrpp.generatedclasses.tmxgenerated.Tu;
+import com.anzepintar.ozrpp.generatedclasses.tmxgenerated.Tuv;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Marshaller;
 import java.io.File;
@@ -27,7 +27,7 @@ import org.w3c.dom.NodeList;
 public class FileImporter {
 
   public void importToTmx(File file) throws Exception {
-    JAXBContext jc = JAXBContext.newInstance("com.anzepintar.ozrpp.converters.tmxconvert");
+    JAXBContext jc = JAXBContext.newInstance("com.anzepintar.ozrpp.generatedclasses.tmxgenerated");
     ObjectFactory objFactory = new ObjectFactory();
 
     Tmx tmxFile = objFactory.createTmx();
@@ -37,6 +37,13 @@ public class FileImporter {
     tmxFile.setHeader(header);
     Body body = new Body();
     tmxFile.setBody(body);
+    header.setCreationtool("Ozrpp");
+    header.setDatatype("PlainText");
+    header.setCreationtoolversion("1.0");
+    header.setSegtype("sentence");
+    header.setSrclang(Ozrpp.projectProperites.getSourceLang());
+    header.setAdminlang("EN-US");
+    tmxFile.setHeader(header);
 
     String fileName = file.getName();
     int lastIndex = fileName.lastIndexOf(".");
@@ -73,11 +80,11 @@ public class FileImporter {
     String content = new String(bytes, StandardCharsets.UTF_8);
 
     String[] sentences = content.split("(?<=[.!?])\\s+");
-    for (int i = 0; i < sentences.length; i++) {
-      if(sentences[i].isEmpty()) {
+    for (String sentence : sentences) {
+      if (sentence.isEmpty()) {
         continue;
       }
-      Tuv tuv1 = createSourceSegment(sentences[i]);
+      Tuv tuv1 = createSourceSegment(sentence);
       Tuv tuv2 = createTargetSegment();
       Tu tu = new Tu();
       tu.getTuv().add(tuv1);
@@ -126,8 +133,8 @@ public class FileImporter {
       sentences[i] = paragraph.getTextContent();
     }
     doc.close();
-    for (int i = 0; i < sentences.length; i++) {
-      Tuv tuv1 = createSourceSegment(sentences[i]);
+    for (String sentence : sentences) {
+      Tuv tuv1 = createSourceSegment(sentence);
       Tuv tuv2 = createTargetSegment();
       Tu tu = new Tu();
       tu.getTuv().add(tuv1);

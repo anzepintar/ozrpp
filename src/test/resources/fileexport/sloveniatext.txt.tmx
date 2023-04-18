@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<tmx>
+    <header creationtool="ozrpp"/>
+    <body>
+        <tu>
+            <tuv lang="sl">
+                <seg>SloveniaODT, officially the Republic of Slovenia, is a country in Central Europe.</seg>
+            </tuv>
+            <tuv creationdate="20230416T115436Z" lang="en">
+                <seg></seg>
+            </tuv>
+            <tuv lang="sl">
+                <seg>It is bordered by Italy to the west, Austria to the north, Hungary to the northeast, Croatia to the southeast, and the Adriatic Sea to the southwest.</seg>
+            </tuv>
+            <tuv creationdate="20230416T115436Z" lang="en">
+                <seg></seg>
+            </tuv>
+            <tuv lang="sl">
+                <seg>Slovenia is mostly mountainous and forested, covers 20,271 square kilometres (7,827 sq mi), and has a population of 2.1 million (2,108,708 people).</seg>
+            </tuv>
+            <tuv creationdate="20230416T115436Z" lang="en">
+                <seg></seg>
+            </tuv>
+            <tuv lang="sl">
+                <seg>Slovenes constitute over 80% of the country's population.</seg>
+            </tuv>
+            <tuv creationdate="20230416T115436Z" lang="en">
+                <seg></seg>
+            </tuv>
+            <tuv lang="sl">
+                <seg>Slovene, a South Slavic language, is the official language.</seg>
+            </tuv>
+            <tuv creationdate="20230416T115436Z" lang="en">
+                <seg></seg>
+            </tuv>
+            <tuv lang="sl">
+                <seg>Slovenia has a predominantly temperate continental climate, with the exception of the Slovene Littoral and the Julian Alps.</seg>
+            </tuv>
+            <tuv creationdate="20230416T115436Z" lang="en">
+                <seg></seg>
+            </tuv>
+            <tuv lang="sl">
+                <seg>A sub-mediterranean climate reaches to the northern extensions of the Dinaric Alps that traverse the country in a northwest–southeast direction.</seg>
+            </tuv>
+            <tuv creationdate="20230416T115436Z" lang="en">
+                <seg></seg>
+            </tuv>
+            <tuv lang="sl">
+                <seg>The Julian Alps in the northwest have an alpine climate. Toward the northeastern Pannonian Basin, a continental climate is more pronounced.</seg>
+            </tuv>
+            <tuv creationdate="20230416T115436Z" lang="en">
+                <seg></seg>
+            </tuv>
+            <tuv lang="sl">
+                <seg>Ljubljana, the capital and largest city of Slovenia, is geographically situated near the centre of the country.</seg>
+            </tuv>
+            <tuv creationdate="20230416T115436Z" lang="en">
+                <seg></seg>
+            </tuv>
+        </tu>
+    </body>
+</tmx>

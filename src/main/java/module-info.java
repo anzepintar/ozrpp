@@ -29,9 +29,7 @@ module com.anzepintar {
   exports com.anzepintar.ozrpp.projectproperties;
   opens com.anzepintar.ozrpp.projectproperties to jakarta.xml.bind;
 
-  exports com.anzepintar.ozrpp.converters.tmxconvert;
-  opens com.anzepintar.ozrpp.converters.tmxconvert to jakarta.xml.bind;
+  exports com.anzepintar.ozrpp.generatedclasses.tmxgenerated;
+  opens com.anzepintar.ozrpp.generatedclasses.tmxgenerated to jakarta.xml.bind;
 
-  exports com.anzepintar.ozrpp.converters.xliffconvert;
-  opens com.anzepintar.ozrpp.converters.xliffconvert to jakarta.xml.bind;
 }

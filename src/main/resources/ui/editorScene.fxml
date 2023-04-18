@@ -7,132 +7,56 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-  minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18"
-  xmlns:fx="http://javafx.com/fxml/1"
-  fx:controller="com.anzepintar.ozrpp.controllers.EditorController">
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#saveFile" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.anzepintar.ozrpp.controllers.EditorController">
   <children>
     <MenuBar prefHeight="20">
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
-            <MenuItem fx:id="menuFileOpenFile" mnemonicParsing="false" onAction="#newProject"
-              text="New Project"/>
-            <MenuItem fx:id="menuFileSaveFile" mnemonicParsing="false" onAction="#saveFile"
-              text="Save file"/>
-            <MenuItem fx:id="menuFileSaveToXliff" mnemonicParsing="false" onAction="#exportToXliff"
-              text="Export to xliff"/>
-            <MenuItem fx:id="menuFileCloseFile" mnemonicParsing="false" onAction="#closeProject"
-              text="Close project"/>
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Edit">
-          <items>
-            <MenuItem fx:id="menuEditDelete" mnemonicParsing="false" onAction="#deleteSelection"
-              text="Delete"/>
-            <MenuItem fx:id="menuEditCopySource" mnemonicParsing="false"
-              onAction="#copySelectionToTarget" text="Copy source"/>
+            <MenuItem fx:id="menuFileSaveFile" mnemonicParsing="false" onAction="#saveFile" text="Save file" />
+            <MenuItem fx:id="menuFileSaveToTarget" mnemonicParsing="false" onAction="#exportToTarget" text="Export to target" />
+            <MenuItem fx:id="menuFileSaveToXliff" mnemonicParsing="false" onAction="#exportToXliff" text="Export to xliff" />
+            <MenuItem fx:id="menuFileCloseFile" mnemonicParsing="false" onAction="#closeProject" text="Close project" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
           <items>
-            <MenuItem fx:id="menuGetProjectSourceCode" mnemonicParsing="false" onAction="#openSourceCode" text="Get Project Source Code"/>
+            <MenuItem fx:id="menuGetProjectSourceCode" mnemonicParsing="false" onAction="#openSourceCode" text="Get Project Source Code" />
           </items>
         </Menu>
       </menus>
     </MenuBar>
-    <SplitPane dividerPositions="0.75" orientation="VERTICAL" VBox.vgrow="ALWAYS">
+    <SplitPane orientation="VERTICAL" VBox.vgrow="ALWAYS">
       <items>
         <SplitPane dividerPositions="0.85" VBox.vgrow="ALWAYS">
           <items>
             <TableView fx:id="tableView" VBox.vgrow="ALWAYS">
               <columns>
-                <TableColumn fx:id="col1" editable="false" resizable="false"
-                  sortable="false" text="Source"/>
-                <TableColumn fx:id="col2" resizable="false" sortable="false"
-                  text="Target"/>
-                <TableColumn fx:id="col3" editable="false" resizable="false"
-                  sortable="false" text="Completion status"/>
+                <TableColumn fx:id="col1" editable="false" resizable="false" sortable="false" text="Source" />
+                <TableColumn fx:id="col2" resizable="false" sortable="false" text="Target" />
+                <TableColumn fx:id="col3" editable="false" resizable="false" sortable="false" text="Completion status" />
               </columns>
               <padding>
-                <Insets left="-1.0" right="-1.0"/>
+                <Insets left="-1.0" right="-1.0" />
               </padding>
               <columnResizePolicy>
-                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
               </columnResizePolicy>
             </TableView>
             <VBox>
               <children>
-                <Label fx:id="ProjectNameInfo" text="Project name:"/>
-                <Label fx:id="ProjectLangInfo" layoutX="10.0" layoutY="27.0"
-                  text="Language sl -&gt; en"/>
-                <Label layoutX="10.0" layoutY="10.0" text="Project files"/>
-                <ListView fx:id="projectFilesList" prefHeight="602.0" prefWidth="189.0"
-                  VBox.vgrow="ALWAYS"/>
+                <Label fx:id="ProjectNameInfo"/>
+                <Label fx:id="ProjectLangInfo" layoutX="10.0" layoutY="27.0"/>
+                <Label layoutX="10.0" layoutY="10.0" text="Project files" />
+                <ListView fx:id="projectFilesList" onMouseClicked="#openSelectedFile" prefHeight="602.0" prefWidth="189.0" VBox.vgrow="ALWAYS" />
               </children>
             </VBox>
           </items>
         </SplitPane>
-        <TabPane prefHeight="177.0" prefWidth="1280.0" tabClosingPolicy="UNAVAILABLE">
-          <tabs>
-            <Tab text="Fuzzy match">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                  <children>
-                    <TextArea fx:id="catMatch" layoutX="-8.0" layoutY="-13.0" prefHeight="161.0"
-                      prefWidth="1249.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
-                    <HBox layoutX="47.0" layoutY="17.0" prefHeight="160.0" prefWidth="1278.0"
-                      AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
-                  </children>
-                </AnchorPane>
-              </content>
-            </Tab>
-            <Tab text="Concordance search">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                  <children>
-                    <VBox layoutX="194.0" layoutY="-20.0" prefHeight="160.0" prefWidth="1278.0"
-                      AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                      <children>
-                        <Label text="Concordance search:"/>
-                        <TextField/>
-                        <ListView prefHeight="200.0" prefWidth="1278.0"/>
-                      </children>
-                    </VBox>
-                  </children>
-                </AnchorPane>
-              </content>
-            </Tab>
-            <Tab text="Machine translation">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                  <children>
-                    <HBox layoutX="122.0" layoutY="17.0" prefHeight="160.0" prefWidth="1278.0"
-                      AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                      <children>
-                        <TextArea prefHeight="160.0" prefWidth="628.0" wrapText="true"/>
-                        <TextArea prefHeight="160.0" prefWidth="677.0" wrapText="true"/>
-                      </children>
-                    </HBox>
-                  </children>
-                </AnchorPane>
-              </content>
-            </Tab>
-          </tabs>
-        </TabPane>
       </items>
     </SplitPane>
   </children>

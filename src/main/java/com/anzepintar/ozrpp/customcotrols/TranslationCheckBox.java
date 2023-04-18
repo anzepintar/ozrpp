@@ -1,10 +1,15 @@
 package com.anzepintar.ozrpp.customcotrols;
 
-import java.awt.Checkbox;
+import javafx.scene.control.CheckBox;
 
-public class TranslationCheckBox extends Checkbox {
-  public TranslationCheckBox(boolean translated){
+public class TranslationCheckBox extends CheckBox {
+
+  public TranslationCheckBox(Object o) {
     super();
-
+    setPrefSize(50, 50);
+    setAlignment(javafx.geometry.Pos.CENTER);
+    this.setStyle("-fx-font-size: 40; -fx-padding: 0;");
   }
+
+
 }
