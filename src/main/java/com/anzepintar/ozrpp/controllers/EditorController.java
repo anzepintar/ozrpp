@@ -24,7 +24,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -41,7 +40,6 @@ public class EditorController implements Initializable {
   public ListView<File> projectFilesList;
   @FXML
   public TableView<TableRow> tableView;
-  public MenuItem menuFileSaveToTarget;
   @FXML
   private TableColumn<TableRow, AutoResizableTextArea> col1;
   @FXML
@@ -96,7 +94,9 @@ public class EditorController implements Initializable {
 
 
   @FXML
-  private void openSelectedFile(MouseEvent event) {
+  private void openSelectedFile(MouseEvent event)
+      throws IOException, ParserConfigurationException, TransformerException {
+    saveFile();
     if (event.getClickCount() == 1) {
       File selectedItem = projectFilesList.getSelectionModel().getSelectedItem();
       if (selectedItem != null) {
@@ -134,7 +134,8 @@ public class EditorController implements Initializable {
             TmxLoader.getTmxStatus(filePath).get(i)));
       }
     } catch (Exception e) {
-
+      System.err.println("An exception occurred while processing the TMX file:");
+      e.printStackTrace();
     }
 
     return FXCollections.observableList(tableRowsList);
@@ -157,7 +158,7 @@ public class EditorController implements Initializable {
 
 
   private void saveTmxFile()
-      throws IOException, ParserConfigurationException, TransformerException {
+      throws ParserConfigurationException, TransformerException {
 
     String filePath = Ozrpp.projectProperites.getProjectRoot().getAbsolutePath() + "/tmx/"
         + currentFile.getName() + ".tmx";
