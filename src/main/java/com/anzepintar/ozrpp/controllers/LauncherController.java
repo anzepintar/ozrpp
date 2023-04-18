@@ -6,7 +6,6 @@ import jakarta.xml.bind.JAXBException;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.DirectoryChooser;
@@ -51,7 +50,7 @@ public class LauncherController {
   }
 
   @FXML
-  private void openRepo(ActionEvent event) throws URISyntaxException, IOException {
+  private void openRepo() throws URISyntaxException, IOException {
     java.awt.Desktop.getDesktop().browse(new java.net.URI("https://github.com/anzepintar/Ozrpp/"));
   }
 

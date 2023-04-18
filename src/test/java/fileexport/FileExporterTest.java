@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.anzepintar.ozrpp.Ozrpp;
 import com.anzepintar.ozrpp.fileexport.FileExporter;
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
@@ -18,7 +17,7 @@ public class FileExporterTest {
   private File testFile;
 
   @BeforeEach
-  public void setUp() throws IOException {
+  public void setUp() {
     testFile = new File("src/test/resources/fileexport/sloveniatext.docx.tmx");
     Ozrpp.projectProperites.setProjectRoot(new File("src/test/resources/fileexport"));
   }

@@ -12,7 +12,7 @@ public class TableRow {
   public TableRow(String sourceField, String targetField, Boolean statusCheckBox) {
     this.sourceField = new AutoResizableTextArea(sourceField);
     this.targetField = new AutoResizableTextArea(targetField);
-    this.statusCheckBox = (new TranslationCheckBox(null));
+    this.statusCheckBox = (new TranslationCheckBox());
   }
 
   public AutoResizableTextArea getSourceField() {

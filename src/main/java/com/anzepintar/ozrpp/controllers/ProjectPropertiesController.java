@@ -29,7 +29,6 @@ import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -61,7 +60,7 @@ public class ProjectPropertiesController implements Initializable {
 
 
   @FXML
-  private void updateProjectName(KeyEvent event) {
+  private void updateProjectName() {
     Ozrpp.projectProperites.setProjectName(projectNameTextField.getText());
   }
 
@@ -85,7 +84,7 @@ public class ProjectPropertiesController implements Initializable {
   }
 
   @FXML
-  private void removeFile(ActionEvent event) {
+  private void removeFile() {
     ObservableList<File> selectedFiles = fileList.getSelectionModel().getSelectedItems();
     if (!selectedFiles.isEmpty()) {
       files.removeAll(selectedFiles);
@@ -163,8 +162,8 @@ public class ProjectPropertiesController implements Initializable {
       throw new RuntimeException(e);
     }
 
-    sourceLangSelector.setItems(new SortedList<String>(langOptions, Collator.getInstance()));
-    targetLangSelector.setItems(new SortedList<String>(langOptions, Collator.getInstance()));
+    sourceLangSelector.setItems(new SortedList<>(langOptions, Collator.getInstance()));
+    targetLangSelector.setItems(new SortedList<>(langOptions, Collator.getInstance()));
 
 
   }

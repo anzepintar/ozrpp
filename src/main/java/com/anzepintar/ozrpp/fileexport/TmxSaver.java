@@ -2,7 +2,6 @@ package com.anzepintar.ozrpp.fileexport;
 
 import com.anzepintar.ozrpp.Ozrpp;
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -19,7 +18,7 @@ public class TmxSaver {
 
   public static void saveTmxData(String filePath, List<String> sourceStrings,
       List<String> targetStrings, List<Boolean> translationStatus)
-      throws IOException, ParserConfigurationException, TransformerException {
+      throws ParserConfigurationException, TransformerException {
 
     DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
     DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();

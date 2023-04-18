@@ -4,7 +4,7 @@ import javafx.scene.control.CheckBox;
 
 public class TranslationCheckBox extends CheckBox {
 
-  public TranslationCheckBox(Object o) {
+  public TranslationCheckBox() {
     super();
     setPrefSize(50, 50);
     setAlignment(javafx.geometry.Pos.CENTER);

@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -59,12 +58,12 @@ public class EditorController implements Initializable {
 
 
   @FXML
-  private void closeProject(ActionEvent event) throws IOException {
+  private void closeProject() throws IOException {
     Ozrpp.setRoot("/ui/launcherScene.fxml");
   }
 
   @FXML
-  private void openSourceCode(ActionEvent event) throws IOException, URISyntaxException {
+  private void openSourceCode() throws IOException, URISyntaxException {
     java.awt.Desktop.getDesktop().browse(new java.net.URI("https://github.com/anzepintar/Ozrpp/"));
   }
 
@@ -127,7 +126,7 @@ public class EditorController implements Initializable {
 
     List<TableRow> tableRowsList = new ArrayList<>();
     try {
-      var list = TmxLoader.getTmxSourceStrings(filePath);
+      List<String> list = TmxLoader.getTmxSourceStrings(filePath);
 
       for (int i = 0; i < list.size(); i++) {
         tableRowsList.add(new TableRow(TmxLoader.getTmxSourceStrings(filePath).get(i),
@@ -135,14 +134,14 @@ public class EditorController implements Initializable {
             TmxLoader.getTmxStatus(filePath).get(i)));
       }
     } catch (Exception e) {
+
     }
 
-    ObservableList<TableRow> observableList = FXCollections.observableList(tableRowsList);
-    return observableList;
+    return FXCollections.observableList(tableRowsList);
   }
 
 
-  public void exportToXliff(ActionEvent event) throws Exception {
+  public void exportToXliff() throws Exception {
     saveTmxFile();
     if (checkCompletion()) {
       DirectoryChooser directoryChooser = new DirectoryChooser();
@@ -175,7 +174,7 @@ public class EditorController implements Initializable {
   }
 
 
-  public void exportToTarget(ActionEvent event) throws Exception {
+  public void exportToTarget() throws Exception {
     FileExporter.saveToTarget(new File(
         Ozrpp.projectProperites.getProjectRoot().getAbsolutePath() + "/tmx/" + currentFile.getName()
             + ".tmx"), getFileExtension(currentFile.getName()));
