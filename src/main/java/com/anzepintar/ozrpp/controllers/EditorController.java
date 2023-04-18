@@ -95,7 +95,7 @@ public class EditorController implements Initializable {
 
   @FXML
   private void openSelectedFile(MouseEvent event)
-      throws IOException, ParserConfigurationException, TransformerException {
+      throws ParserConfigurationException, TransformerException {
     saveFile();
     if (event.getClickCount() == 1) {
       File selectedItem = projectFilesList.getSelectionModel().getSelectedItem();
