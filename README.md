@@ -5,15 +5,15 @@
 
 - Word dokument:
 
-  https://github.com/anzepintar/ozrpp/docs/Word/
+  [https://github.com/anzepintar/ozrpp/blob/master/docs/Word.docx](https://github.com/anzepintar/ozrpp/blob/master/docs/Word.docx)
 
 - PowerPoint dokument:
 
-  https://github.com/anzepintar/ozrpp/docs/PowerPoint/
+  [https://github.com/anzepintar/ozrpp/blob/master/docs/PDF.pdf](https://github.com/anzepintar/ozrpp/blob/master/docs/PDF.pdf)
 
 - PDF dokument:
 
-  https://github.com/anzepintar/ozrpp/docs/PDF/
+  [https://github.com/anzepintar/ozrpp/blob/master/docs/PowerPoint.pptx](https://github.com/anzepintar/ozrpp/blob/master/docs/PowerPoint.pptx)
 
 ## Struktura projekta
 ```text
