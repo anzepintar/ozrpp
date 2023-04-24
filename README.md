@@ -7,11 +7,11 @@
 
   [https://github.com/anzepintar/ozrpp/blob/master/docs/Word.docx](https://github.com/anzepintar/ozrpp/blob/master/docs/Word.docx)
 
-- PowerPoint dokument:
+- PDF dokument:
 
   [https://github.com/anzepintar/ozrpp/blob/master/docs/PDF.pdf](https://github.com/anzepintar/ozrpp/blob/master/docs/PDF.pdf)
 
-- PDF dokument:
+- PowerPoint dokument:
 
   [https://github.com/anzepintar/ozrpp/blob/master/docs/PowerPoint.pptx](https://github.com/anzepintar/ozrpp/blob/master/docs/PowerPoint.pptx)
 
