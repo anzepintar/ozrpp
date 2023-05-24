@@ -5,8 +5,9 @@ import com.anzepintar.ozrpp.fileimport.FileImporter;
 import com.anzepintar.ozrpp.projectproperties.ProjectPropertiesManager;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -47,7 +48,9 @@ public class ProjectPropertiesController implements Initializable {
   public static Map<String, String> getLanguageCodesAndNames() throws IOException {
     Map<String, String> languages = new HashMap<>();
     String[] parts;
-    BufferedReader br = new BufferedReader(new FileReader("src/main/resources/langAndCodes.csv"));
+    InputStream inputStream = ProjectPropertiesController.class.getResourceAsStream("/langAndCodes.csv");
+    InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+    BufferedReader br = new BufferedReader(inputStreamReader);
     String line;
     while ((line = br.readLine()) != null) {
       parts = line.split(";");

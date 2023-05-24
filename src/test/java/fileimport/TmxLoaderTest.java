@@ -1,15 +1,16 @@
 package fileimport;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import com.anzepintar.ozrpp.fileimport.TmxLoader;
-import java.io.IOException;
-import java.nio.file.Paths;
-import java.util.List;
-import javax.xml.parsers.ParserConfigurationException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TmxLoaderTest {
 

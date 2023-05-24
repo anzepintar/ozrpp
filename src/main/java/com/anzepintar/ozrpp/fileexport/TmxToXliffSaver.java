@@ -43,7 +43,7 @@ public class TmxToXliffSaver {
 
     Element fileElement = xliffDoc.createElement("file");
     fileElement.setAttribute("source-language", Ozrpp.projectProperites.getSourceLang());
-    fileElement.setAttribute("target-language", Ozrpp.projectProperites.getSourceLang());
+    fileElement.setAttribute("target-language", Ozrpp.projectProperites.getTargetLang());
     fileElement.setAttribute("datatype", "plaintext");
     fileElement.setAttribute("original", "tmxFile");
     xliffRoot.appendChild(fileElement);
@@ -112,20 +112,20 @@ public class TmxToXliffSaver {
     doc.getDocumentElement().normalize();
 
     NodeList tuNodes = doc.getElementsByTagName("tu");
-    List<String> targetStrings = new ArrayList<>();
+    List<String> sourceStrings = new ArrayList<>();
 
     for (int i = 0; i < tuNodes.getLength(); i++) {
       Node tuNode = tuNodes.item(i);
       if (tuNode.getNodeType() == Node.ELEMENT_NODE) {
         Element tuElement = (Element) tuNode;
         NodeList tuvNodes = tuElement.getElementsByTagName("tuv");
-        Element tuvElement = (Element) tuvNodes.item(1);
+        Element tuvElement = (Element) tuvNodes.item(0);
         String targetText = tuvElement.getElementsByTagName("seg").item(0).getTextContent();
-        targetStrings.add(targetText);
+        sourceStrings.add(targetText);
 
 
       }
     }
-    return targetStrings;
+    return sourceStrings;
   }
 }

@@ -49,7 +49,7 @@ public class FileExporter {
   private static void saveAsTxt(String fileName, List<String> strings) throws IOException {
     StringBuilder content = new StringBuilder();
     for (String str : strings) {
-      content.append(str);
+      content.append(str + "\n");
     }
     File outputFile = new File(
         Ozrpp.projectProperites.getProjectRoot().getAbsolutePath() + "/target/" + fileName
